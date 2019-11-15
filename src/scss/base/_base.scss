@@ -1,0 +1,28 @@
+html {
+  font-size: 10px;
+}
+
+body {
+  font-size: 1rem;
+}
+
+a {
+  color: inherit;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: none;
+    color: inherit;
+  }
+}
+
+@for $i from 1 to 7 {
+  h#{$i} {
+    margin: 0;
+  }
+}
+
+p,
+figure {
+  margin: 0;
+}
