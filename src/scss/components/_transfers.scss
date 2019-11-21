@@ -1,0 +1,31 @@
+.transfers {
+    margin-top: 2rem;
+    position: relative;
+
+    &__menu {
+        @extend %flex-props;
+
+        &-item {
+            @include media-breakpoint-up(md) {
+                flex: 0 0 auto;
+                width: auto;
+                max-width: 100%;
+
+                + * {
+                    margin-left: 5%
+                }
+            }
+
+            label {
+                font-family: $ff-sans-serif;
+                font-size: em(16, $baseFontSize);
+                font-weight: bold;
+                color: $color-dark;
+
+                @include media-breakpoint-up(md) {
+                    font-size: fluidSize(14, 18, 768, 1920);
+                }
+            }
+        }
+    }
+}

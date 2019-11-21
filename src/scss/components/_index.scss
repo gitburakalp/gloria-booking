@@ -1,0 +1,115 @@
+body {
+  background-color: $color-white;
+}
+
+input {
+  [type="number"] {
+    &::-webkit-inner-spin-button,
+    ::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+}
+
+.form-control {
+  font-family: $ff-sans-serif;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: normal;
+  color: $color-warm-grey;
+  font-size: 16px;
+  border-color: $color-pinkish-grey;
+
+  @include media-breakpoint-up(md) {
+    font-size: fluidSize(12, 14, 768, 1280);
+    height: 3.5em;
+  }
+
+  @include media-breakpoint-up(lg) {
+    font-size: fluidSize(12, 14, 1280, 1920);
+  }
+
+  @at-root select.form-control {
+    background-image: url(/../Storage/svg/chevron-down.svg);
+    background-repeat: no-repeat;
+    background-position: calc(100% - 15px) 50%;
+    background-size: 15px;
+  }
+
+  &.selectable {
+    background-image: url(/../Storage/svg/chevron-down.svg);
+    background-repeat: no-repeat;
+    background-position: calc(100% - 15px) 50%;
+    background-size: 15px;
+  }
+
+  &:focus {
+    box-shadow: none;
+    border-color: $color-dark;
+  }
+}
+
+.form-control[readonly],
+.form-control[disabled] {
+  cursor: pointer;
+  background-color: $color-white;
+}
+
+.d-none--sm {
+  @include media-breakpoint-down(sm) {
+    display: none;
+  }
+}
+
+.container {
+  @include px(0px);
+
+  @include media-breakpoint-up(md) {
+    max-width: calcPercent(1640, 1920) * 1%;
+  }
+}
+
+[data-hidden-child] {
+  transition: all 0.5s;
+
+  @include media-breakpoint-up(md) {
+    position: absolute;
+    max-width: 15.75%;
+    background-color: $color-white;
+    left: 50.5%;
+    top: 70%;
+    z-index: 999;
+  }
+
+  &:not(.active) {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .row > * {
+    &:nth-child(1) {
+      @include media-breakpoint-down(sm) {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+      }
+    }
+
+    &:not(.active) {
+      display: none;
+    }
+  }
+}
+
+.panel-content-trigger {
+  cursor: pointer;
+}
+
+@import "search-module";
+@import "hotel-select-panel";
+@import "search-details";
+@import "search-steps";
+@import "rooms";
+@import "sliders";
+@import "transfers";
+@import "payment";

@@ -1,0 +1,281 @@
+input {
+    &.form-control[readonly] {
+        background-color: $color-white;
+    }
+}
+
+.search {
+    &-form {
+        $px: calcPercent(17, 375) * 1%;
+        $py: calcPercent(12, 667) + vh;
+        background-color: $color-pale-grey;
+        @include py($py);
+        @include px($px);
+
+        .form-control {
+            text-align: center;
+            padding: 1.125rem;
+            height: auto;
+        
+            @include media-breakpoint-up(lg) {
+                font-size: fluidSize(14,20,1280,1920);
+            }
+
+            &:focus {
+                color: $color-dark;
+            }
+        }
+
+        @include media-breakpoint-up(md) {
+            $px: calcPercent(39, 1640) * 1%;
+            $py: calcPercent(26, 1080) + vh;
+            @include py($py);
+            @include px($px);
+        }
+
+        .minus,.plus {
+            cursor: pointer;
+            z-index: 99;
+            font-size: em(24,$baseFontSize);
+            color: $color-warm-grey;
+
+            @include media-breakpoint-up(md) {
+                font-size: fluidSize(16,20,768,1280);
+            }
+
+            @include media-breakpoint-up(md) {
+                font-size: fluidSize(20,24,1280,1920);
+            }
+        }
+    }
+
+    &-panel {
+        position: relative;
+        @extend %flex-props;
+        align-items: center;
+
+        &__col {
+            flex: 0 0 100%;
+            max-width: 100%;
+            margin-top: 18px;
+
+            &-auto {
+                flex: 0 0 auto;
+                width: auto;
+                max-width: 100%;
+
+                &.hotel-select-section {
+                    @include media-breakpoint-down(sm) {
+                        flex: 0 0 100%;
+                        max-width: 100%;
+                        margin-top: 14px;
+                    }
+
+                    @include media-breakpoint-up(md) {
+                        $maxW: calcPercent(412, 1640);
+                        flex: 0 0 $maxW * 1%;
+                        max-width: $maxW * 1%;
+                        margin-left: calcPercent(76, 1640) * 1%;
+                    }
+                }
+
+                &:nth-child(1) {
+                    margin-right: calcPercent(12, 375) * 1%;
+
+                    @include media-breakpoint-up(md) {
+                        margin-right: calcPercent(29.6, 1640) * 1%;
+                    }
+                }
+
+                @include media-breakpoint-down(sm) {
+                    &:nth-child(1) {
+                        order: 1;
+                    }
+
+                    &:nth-child(2) {
+                        order: 2;
+                    }
+
+                    &:nth-child(3) {
+                        order: 4;
+                    }
+
+                    &:nth-child(4) {
+                        order: 3;
+                    }
+                }
+            }
+
+            .input-group {
+                &-prepend {
+                    position: absolute;
+                    z-index: 99;
+                    top: 50%;
+                    transform: translateY(-50%);
+
+                    &:first-child {
+                        left: 10px;
+                    }
+
+                    &:last-child {
+                        right:10px;
+                    }
+                }
+            }
+        }
+
+        &__icon {
+            width: 100%;
+            height: auto;
+            max-width: calcPercent(34, 375) + vw;
+
+            @include media-breakpoint-up(md) {
+                max-width: calcPercent(69.4, 1920) + vw;
+            }
+        }
+
+        &__title {
+            font-family: $ff-sans-serif;
+            font-size: em(25, $baseFontSize);
+            font-weight: 900;
+            line-height: 1.16;
+            color: $color-dark-two;
+
+            @include media-breakpoint-up(md) {
+                font-size: fluidSize(20, 25, 768, 1280);
+            }
+
+            @include media-breakpoint-up(lg) {
+                font-size: fluidSize(25, 40, 1280, 1920);
+            }
+        }
+
+        &__headings {
+            font-family: $ff-sans-serif;
+            font-weight: 400;
+            font-size: em(14, $baseFontSize);
+            line-height: 1.43;
+            letter-spacing: em(1.4, $baseFontSize);
+            color: $color-warm-grey;
+
+            @include media-breakpoint-up(md) {
+                font-size: fluidSize(10, 14, 768, 1920);
+                margin-bottom: em(10,$baseFontSize);
+            }
+        }
+
+        &-expand {
+            position: relative;
+            @extend %flex-props;
+
+            .search-panel__col {
+                &.dates {
+                    @include media-breakpoint-down(sm) {
+                        background-color: transparent;
+                        flex: 0 0 50%;
+                        max-width: 50%;
+
+                        &:nth-child(1) {
+                            &::before {
+                                position: absolute;
+                                right: 0;
+                                top: 50%;
+                                transform: translate(50%, -50%);
+                                width: 40px;
+                                height: 40px;
+                                background-color: $color-dark;
+                                border-radius: 100%;
+
+                                vertical-align: middle;
+                                font-family: "Font Awesome 5 Pro";
+                                content: "\f073";
+                                font-weight: 300;
+                                font-size: em(24, $baseFontSize);
+                                text-align: center;
+                                color: $color-white;
+                                z-index: 10;
+                            }
+
+                            &::after {
+                                content: "";
+                                position: absolute;
+                                right: 0;
+                                top: 0;
+                                bottom: 0;
+                                background-color: $color-dark;
+                                width: 1px;
+                                z-index: 9;
+                            }
+
+                            .form-control {
+                                padding-right: 24px;
+                            }
+                        }
+
+                        &:nth-child(2) {
+                            .form-control {
+                                padding-left: 24px;
+                            }
+                        }
+
+                        .search-panel__headings {
+                            margin-top: 6px;
+                        }
+
+                        .form-control {
+                            border-color: transparent;
+                            background-color: transparent;
+                            color: $color-dark;
+                        }
+
+                        &.active {
+                            background-color: $color-white;
+                        }
+                    }
+                }
+
+                @include media-breakpoint-up(md) {
+                    $maxW: calcPercent(260,1640);
+                    flex: 0 0 $maxW * 1%;
+                    max-width: $maxW * 1%;
+                    margin-right: calcPercent(16,1640) * 1%;
+                }
+            }
+        }
+    }
+
+    &-btn {
+        display: block;
+        text-align: center;
+        font-family: $ff-sans-serif;
+        font-size: em(18,$baseFontSize);
+        line-height: 3;
+        letter-spacing: em(4.5,$baseFontSize);
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        &-area {
+            display: flex;
+            flex-direction: column;
+        }
+
+        @include media-breakpoint-up(md) {
+            font-size: fluidSize(14,17,768,1920);
+            letter-spacing: fluidSize(3.5,4.25,768,1920);
+            line-height: 1.5;
+        }
+
+        &--dull-brown {
+            @extend .search-btn;
+            background-color: $color-dull-brown;
+            color: $color-white !important;
+            height: 100%;
+
+            @include media-breakpoint-up(md) {
+                margin-top: fluidSize(22,24,768,1920);
+            }
+        }
+    }
+}

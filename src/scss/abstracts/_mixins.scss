@@ -1,0 +1,15 @@
+@mixin px($value) {
+  padding-left: $value;
+  padding-right: $value;
+}
+
+@mixin py($value) {
+  padding-top: $value;
+  padding-bottom: $value;
+}
+
+@mixin ipadPro() {
+  @media only screen and #{$ipad-pro-landscape-breakpoint} {
+    @content;
+  }
+}
