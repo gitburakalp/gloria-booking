@@ -2,13 +2,32 @@
   @return ($value * 100) / $value2;
 }
 
+@function strip-unit($num) {
+  @return $num / ($num * 0 + 1);
+}
+
+@function vw($pxValue, $viewportView) {
+  @return $pxValue / $viewportView * 100 + vw;
+}
+
+@function em($target, $context: $base-font-size) {
+  @if not unitless($target) {
+    $target: strip-unit($target);
+  }
+
+  @if not unitless($context) {
+    $context: strip-unit($context);
+  }
+
+  @if $target == 0 {
+    @return 0;
+  }
+  @return $target / $context + 0em;
+}
+
 @function fluidSize($minVal, $maxVal, $minPixel, $maxPixel) {
   @return calc(
     #{$minVal}px + (#{$maxVal} - #{$minVal}) *
       ((100vw - #{$minPixel}px) / (#{$maxPixel} - #{$minPixel}))
   );
-}
-
-@function vw($pxValue, $viewportView) {
-  @return $pxValue / $viewportView * 100 + vw;
 }

@@ -1,13 +1,28 @@
-body {
-  background-color: $color-white;
-}
-
 input {
   [type="number"] {
     &::-webkit-inner-spin-button,
     ::-webkit-outer-spin-button {
       -webkit-appearance: none;
       margin: 0;
+    }
+  }
+}
+
+.btn {
+  &--black {
+    color: $color-white;
+    background-color: $color-black;
+    border: 1px solid $color-black;
+    text-align: center;
+    line-height: 1;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+
+    transition: color 150ms ease-in, background-color 150ms ease-in;
+
+    &:hover {
+      color: $color-black;
+      background-color: $color-white;
     }
   }
 }
@@ -59,14 +74,6 @@ input {
 .d-none--sm {
   @include media-breakpoint-down(sm) {
     display: none;
-  }
-}
-
-.container {
-  @include px(0px);
-
-  @include media-breakpoint-up(md) {
-    max-width: calcPercent(1640, 1920) * 1%;
   }
 }
 

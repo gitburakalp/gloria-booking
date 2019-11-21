@@ -1,148 +1,176 @@
 .search-details {
-    position: relative;
-    @extend %flex-props;
-    align-items: flex-start;
-    padding-bottom: 100px;
+  position: relative;
+  @extend %flex-props;
+  align-items: flex-start;
+  padding-bottom: 100px;
+
+  @include media-breakpoint-down(sm) {
+    $maxW: calcPercent(349, 375);
+    max-width: $maxW * 1%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @include media-breakpoint-up(md) {
+    margin-top: 12px;
+  }
+
+  .search-results {
+    @include media-breakpoint-up(md) {
+      $maxW: 770px;
+      flex: 0 0 $maxW;
+      max-width: $maxW;
+      padding-right: 1rem;
+    }
+  }
+
+  .reservation-details {
+    font-family: $ff-sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: $color-black;
+
+    background-color: $color-white;
+
+    [class*="title"] {
+      display: inline-block;
+      font-weight: 900;
+    }
+
+    .title {
+      font-size: 16px;
+
+      &--sm {
+        font-size: 13px;
+      }
+
+      &--lg {
+        font-size: 18px;
+      }
+    }
+
+    .description {
+      opacity: 0.7;
+
+      &.o1 {
+        opacity: 1;
+      }
+
+      * {
+        float: right;
+      }
+    }
+
+    &-block {
+      position: relative;
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid rgba($color-black, 0.35);
+    }
+
+    .row {
+      margin-top: 0.5rem;
+    }
 
     @include media-breakpoint-down(sm) {
-        $maxW: calcPercent(349, 375);
-        max-width: $maxW * 1%;
-        margin-left: auto;
-        margin-right: auto;
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      z-index: 99;
+
+      &:not(.active) {
+        .row {
+          display: none;
+        }
+      }
     }
 
     @include media-breakpoint-up(md) {
-        margin-top: 12px;
+      position: sticky;
+      top: 0;
+      $maxW: calcPercent(536, $containerW);
+      flex: 0 0 $maxW * 1%;
+      max-width: $maxW * 1%;
+      padding: 16px;
+
+      font-size: 14px;
     }
 
-    .search-results {
-        @include media-breakpoint-up(md) {
-            $maxW: calcPercent(1104, $containerW);
-            flex: 0 0 $maxW * 1%;
-            max-width: $maxW * 1%;
-            padding-right: 1rem
+    &__trigger {
+      display: block;
+      position: relative;
+      font-family: $ff-sans-serif;
+      font-size: em(18, $baseFontSize);
+      font-weight: bold;
+      color: $color-black;
+
+      @include media-breakpoint-down(sm) {
+        $mx: calcPercent(30, 375);
+        margin-left: $mx * -1%;
+        margin-right: $mx * -1%;
+
+        &:after {
+          content: "";
+          position: absolute;
+          right: 0;
+          font-size: fluidSize(20, 25, 320, 1920);
+          vertical-align: middle;
+          font-family: "Font Awesome 5 Pro";
+          font-weight: 300;
+          content: "\f077";
         }
+      }
+
+      @include media-breakpoint-up(md) {
+        text-transform: uppercase;
+        font-size: vw(16, 1920);
+      }
     }
 
-    .reservation-details {
-        font-family: $ff-sans-serif;
+    &__title {
+      font-family: $ff-sans-serif;
+      font-size: em(14, $baseFontSize);
+      font-weight: bold;
+      line-height: 1.22;
+      color: $color-black;
+
+      @include media-breakpoint-up(md) {
+        font-size: fluidSize(14, 16, 768, 1920);
+      }
+
+      &--md {
+        @extend .reservation-details__title;
         font-size: em(16, $baseFontSize);
-        font-weight: 300;
-        color: $color-white-two;
-
-        $px: calcPercent(30, 375);
-        $py: calcPercent(20, 667);
-        padding:#{$py}vh $px * 1%;
-
-        background-color: $color-dark;
-
-        .row {
-            margin-top: 0.5rem
-        }
-
-        @include media-breakpoint-down(sm) {
-            position: fixed;
-            left: 0;
-            bottom: 0;
-            z-index: 99;
-
-            &:not(.active) {
-                .row {
-                    display: none;
-                }
-            }
-        }
 
         @include media-breakpoint-up(md) {
-            position:sticky;
-            top:0;
-            $px: calcPercent(32, 1920);
-            $py: calcPercent(37, 1080);
-            $maxW: calcPercent(536, $containerW);
-            flex: 0 0 $maxW * 1%;
-            max-width: $maxW * 1%;
-            padding:#{$py}vh $px * 1%;
-
-            font-size: fluidSize(16,18,768,1920);
+          font-size: fluidSize(16, 18, 768, 1920);
         }
+      }
 
-        &__trigger {
-            display: block;
-            position: relative;
-            font-family: $ff-sans-serif;
-            font-size: em(18, $baseFontSize);
-            letter-spacing: em(3.4, $baseFontSize);
-            color: $color-white;
-            text-align: center;
+      &--lg {
+        @extend .reservation-details__title;
+        font-size: em(20, $baseFontSize);
 
-            @include media-breakpoint-down(sm) {
-                $mx: calcPercent(30, 375);
-                margin-left: $mx * -1%;
-                margin-right: $mx * -1%;
-
-                &:after {
-                    content: "";
-                    position: absolute;
-                    right: 0;
-                    font-size: fluidSize(20, 25, 320, 1920);
-                    vertical-align: middle;
-                    font-family: "Font Awesome 5 Pro";
-                    font-weight: 300;
-                    content: "\f077";
-                }
-            }
-
-            @include media-breakpoint-up(md) {
-                text-transform: uppercase;
-                font-size: fluidSize(14, 17, 768, 1920);
-                letter-spacing: fluidSize(1.4, 1.7, 768, 1920);
-            }
+        @include media-breakpoint-up(md) {
+          font-size: fluidSize(20, 24, 768, 1920);
         }
-
-        &__title {
-            font-family: $ff-sans-serif;
-            font-size: em(14, $baseFontSize);
-            font-weight: bold;
-            line-height: 1.22;
-            color: $color-white;
-
-            @include media-breakpoint-up(md) {
-                font-size: fluidSize(14,16,768,1920);
-            }
-
-            &--md {
-                @extend .reservation-details__title;
-                font-size: em(16, $baseFontSize);
-
-                @include media-breakpoint-up(md) {
-                    font-size: fluidSize(16,18,768,1920);
-                }
-            }
-
-            &--lg {
-                @extend .reservation-details__title;
-                font-size: em(20, $baseFontSize);
-
-                @include media-breakpoint-up(md) {
-                    font-size: fluidSize(20,24,768,1920);
-                }
-            }
-        }
-
-        .border-top-1px {
-            border-top: 1px solid $color-white;
-            padding-top: 1rem;
-        }
+      }
     }
+
+    .border-top-1px {
+      border-top: 1px solid $color-white;
+      padding-top: 1rem;
+    }
+  }
 }
 
 .guest-details {
-    margin-top: 2rem;
-    position: relative;
+  margin-top: 2rem;
+  position: relative;
 
-    .billing-details {
-        &:not(.active) {
-            display: none;
-        }
+  .billing-details {
+    &:not(.active) {
+      display: none;
     }
+  }
 }
