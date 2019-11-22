@@ -1,0 +1,30 @@
+//
+// Component: Inverse
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@inverse-global-color-mode:                     light;
+
+@inverse-global-color:                          @global-inverse-color;
+@inverse-global-emphasis-color:                 @global-inverse-color;
+@inverse-global-muted-color:                    fade(@global-inverse-color, 50%);
+@inverse-global-inverse-color:                  @global-color;
+
+@inverse-global-primary-background:             @global-inverse-color;
+@inverse-global-muted-background:               fade(@global-inverse-color, 10%);
+
+@inverse-global-border:                         #262626;
+
+
+// Component
+// ========================================================================
+
+.hook-inverse() {
+    small {
+        color: fade(@global-inverse-color, 50%);
+    }
+}

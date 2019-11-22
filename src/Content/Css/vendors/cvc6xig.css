@@ -1,0 +1,57 @@
+/*
+ * The Typekit service used to deliver this font or fonts for use on websites
+ * is provided by Adobe and is subject to these Terms of Use
+ * http://www.adobe.com/products/eulas/tou_typekit. For font license
+ * information, see the list below.
+ *
+ * hypatia-sans-pro:
+ *   - http://typekit.com/eulas/00000000000000003b9ada9b
+ *   - http://typekit.com/eulas/00000000000000003b9ada9d
+ *   - http://typekit.com/eulas/00000000000000003b9ada9f
+ *   - http://typekit.com/eulas/00000000000000003b9adaa0
+ *   - http://typekit.com/eulas/00000000000000003b9adaa2
+ *   - http://typekit.com/eulas/00000000000000003b9adaa3
+ *
+ * © 2009-2019 Adobe Systems Incorporated. All Rights Reserved.
+ */
+/*{"last_published":"2019-05-31 06:15:50 UTC"}*/
+
+@import url("https://p.typekit.net/p.css?s=1&k=cvc6xig&ht=tk&f=6781.6783.6785.6786.6788.6789&a=14503644&app=typekit&e=css");
+
+@font-face {
+font-family:"hypatia-sans-pro";
+src:url("https://use.typekit.net/af/14e069/00000000000000003b9ada9b/27/l?primer=ad86284f3cee24b899476760da714e217b99f8f5268dff5c820215d356544f87&fvd=n7&v=3") format("woff2"),url("https://use.typekit.net/af/14e069/00000000000000003b9ada9b/27/d?primer=ad86284f3cee24b899476760da714e217b99f8f5268dff5c820215d356544f87&fvd=n7&v=3") format("woff"),url("https://use.typekit.net/af/14e069/00000000000000003b9ada9b/27/a?primer=ad86284f3cee24b899476760da714e217b99f8f5268dff5c820215d356544f87&fvd=n7&v=3") format("opentype");
+font-display:auto;font-style:normal;font-weight:700;
+}
+
+@font-face {
+font-family:"hypatia-sans-pro";
+src:url("https://use.typekit.net/af/5516de/00000000000000003b9ada9d/27/l?primer=ad86284f3cee24b899476760da714e217b99f8f5268dff5c820215d356544f87&fvd=n2&v=3") format("woff2"),url("https://use.typekit.net/af/5516de/00000000000000003b9ada9d/27/d?primer=ad86284f3cee24b899476760da714e217b99f8f5268dff5c820215d356544f87&fvd=n2&v=3") format("woff"),url("https://use.typekit.net/af/5516de/00000000000000003b9ada9d/27/a?primer=ad86284f3cee24b899476760da714e217b99f8f5268dff5c820215d356544f87&fvd=n2&v=3") format("opentype");
+font-display:auto;font-style:normal;font-weight:200;
+}
+
+@font-face {
+font-family:"hypatia-sans-pro";
+src:url("https://use.typekit.net/af/a40319/00000000000000003b9ada9f/27/l?primer=ad86284f3cee24b899476760da714e217b99f8f5268dff5c820215d356544f87&fvd=i4&v=3") format("woff2"),url("https://use.typekit.net/af/a40319/00000000000000003b9ada9f/27/d?primer=ad86284f3cee24b899476760da714e217b99f8f5268dff5c820215d356544f87&fvd=i4&v=3") format("woff"),url("https://use.typekit.net/af/a40319/00000000000000003b9ada9f/27/a?primer=ad86284f3cee24b899476760da714e217b99f8f5268dff5c820215d356544f87&fvd=i4&v=3") format("opentype");
+font-display:auto;font-style:italic;font-weight:400;
+}
+
+@font-face {
+font-family:"hypatia-sans-pro";
+src:url("https://use.typekit.net/af/393744/00000000000000003b9adaa0/27/l?primer=ad86284f3cee24b899476760da714e217b99f8f5268dff5c820215d356544f87&fvd=n3&v=3") format("woff2"),url("https://use.typekit.net/af/393744/00000000000000003b9adaa0/27/d?primer=ad86284f3cee24b899476760da714e217b99f8f5268dff5c820215d356544f87&fvd=n3&v=3") format("woff"),url("https://use.typekit.net/af/393744/00000000000000003b9adaa0/27/a?primer=ad86284f3cee24b899476760da714e217b99f8f5268dff5c820215d356544f87&fvd=n3&v=3") format("opentype");
+font-display:auto;font-style:normal;font-weight:300;
+}
+
+@font-face {
+font-family:"hypatia-sans-pro";
+src:url("https://use.typekit.net/af/f8d87f/00000000000000003b9adaa2/27/l?primer=ad86284f3cee24b899476760da714e217b99f8f5268dff5c820215d356544f87&fvd=n4&v=3") format("woff2"),url("https://use.typekit.net/af/f8d87f/00000000000000003b9adaa2/27/d?primer=ad86284f3cee24b899476760da714e217b99f8f5268dff5c820215d356544f87&fvd=n4&v=3") format("woff"),url("https://use.typekit.net/af/f8d87f/00000000000000003b9adaa2/27/a?primer=ad86284f3cee24b899476760da714e217b99f8f5268dff5c820215d356544f87&fvd=n4&v=3") format("opentype");
+font-display:auto;font-style:normal;font-weight:400;
+}
+
+@font-face {
+font-family:"hypatia-sans-pro";
+src:url("https://use.typekit.net/af/e1fc43/00000000000000003b9adaa3/27/l?primer=ad86284f3cee24b899476760da714e217b99f8f5268dff5c820215d356544f87&fvd=n6&v=3") format("woff2"),url("https://use.typekit.net/af/e1fc43/00000000000000003b9adaa3/27/d?primer=ad86284f3cee24b899476760da714e217b99f8f5268dff5c820215d356544f87&fvd=n6&v=3") format("woff"),url("https://use.typekit.net/af/e1fc43/00000000000000003b9adaa3/27/a?primer=ad86284f3cee24b899476760da714e217b99f8f5268dff5c820215d356544f87&fvd=n6&v=3") format("opentype");
+font-display:auto;font-style:normal;font-weight:600;
+}
+
+.tk-hypatia-sans-pro { font-family: "hypatia-sans-pro",sans-serif; }

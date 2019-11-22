@@ -1,0 +1,41 @@
+//
+// Component: Background
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@background-default-background:                 @global-background;
+@background-muted-background:                   @global-muted-background;
+@background-primary-background:                 @global-primary-background;
+@background-secondary-background:               @global-secondary-background;
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-background-misc() {
+    .uk-background-tertiary {
+        background-color: #f3f7fa;
+    }
+
+    .uk-background-quaternary {
+        background-color: #222;
+    }
+
+    img[data-src][src*='data:image'] {
+        background-color: @global-secondary-background;
+    }
+
+    .uk-background-gradient-secondary {
+        background-image: linear-gradient(to bottom, transparent, @background-secondary-background);
+    }
+
+    @media (max-width: 959px) {
+        .uk-background-remove\@m {
+            background-color: transparent;
+        }
+    }
+}

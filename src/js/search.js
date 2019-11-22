@@ -442,3 +442,13 @@ let initSliders = () => {
 window.onload = () => {
   initSliders();
 };
+
+$('.reservation-details-button').on("click",(e) => {
+  var ww = $(window).width();
+
+  e.preventDefault();
+
+  if (ww < 1280) {
+    $('.reservation-details').toggleClass('is-shown')
+  }
+})

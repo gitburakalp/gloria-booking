@@ -100,13 +100,13 @@
   border: 1px solid $color-warm-grey;
   color: $color-warm-grey;
 
-  @include media-breakpoint-down(sm) {
+  @include media-breakpoint-down(lg) {
     + * {
       margin-top: 7px;
     }
   }
 
-  @include media-breakpoint-up(md) {
+  @include media-breakpoint-up(xl) {
     display: inline-block;
     font-size: fluidSize(10, 14, 768, 1920);
 
@@ -162,6 +162,33 @@
     height: 100%;
     position: relative;
     transition-property: transform;
+
+    position: relative;
+
+    &::before {
+      content: "";
+      display: block;
+
+      $ar:1.3269230769230769;
+
+      padding-top: 100% / $ar;
+
+      @include media-breakpoint-up(xl) {
+        $ar:1.3703703703703705;
+        padding-top: 100% / $ar;
+      }
+    }
+
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+    }
   }
 
   &-controller {

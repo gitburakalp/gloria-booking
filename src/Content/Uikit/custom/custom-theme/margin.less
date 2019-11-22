@@ -1,0 +1,56 @@
+//
+// Component: Margin
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@margin-margin:                                        @global-margin;
+
+@margin-small-margin:                                  15px;
+
+@margin-medium-margin:                                 30px;
+
+@margin-large-margin:                                  @global-medium-margin;
+@margin-large-margin-l:                                45px;
+
+@margin-xlarge-margin:                                 @global-large-margin;
+@margin-xlarge-margin-l:                               90px;
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-margin-misc() {
+    .uk-margin-xxsmall {
+        margin-bottom: 5px;
+    }
+
+    .uk-margin-xsmall {
+        margin-bottom: 10px;
+    }
+
+    .uk-margin-xsmall-bottom {
+        margin-bottom: 10px !important;
+    }
+
+    .uk-margin-xsmall-right {
+        margin-right: 10px;
+    }
+
+    .uk-margin-xsmall-left {
+        margin-left: 10px;
+    }
+
+    * + .uk-margin-xsmall {
+        margin-top: 10px !important;
+    }
+
+    @media (max-width: 959px) {
+        .uk-margin-remove\@m {
+            margin: 0 !important;
+        }
+    }
+}

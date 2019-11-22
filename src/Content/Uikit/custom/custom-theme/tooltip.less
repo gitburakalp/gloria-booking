@@ -1,0 +1,40 @@
+//
+// Component: Tooltip
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@tooltip-z-index:                               @global-z-index + 30;
+@tooltip-max-width:                             200px;
+@tooltip-padding-vertical:                      5px;
+@tooltip-padding-horizontal:                    15px;
+@tooltip-background:                            #fff;
+@tooltip-border-radius:                         4px;
+@tooltip-color:                                 @global-emphasis-color;
+@tooltip-font-size:                             14px;
+
+@tooltip-margin:                                12px;
+
+
+// Component
+// ========================================================================
+
+.hook-tooltip() {
+    &::after {
+        content: '';
+        border: 8px solid transparent;
+        border-top-color: #fff;
+        position: absolute;
+        right: 28px;
+        bottom: -16px;
+    }
+}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-tooltip-misc() {}

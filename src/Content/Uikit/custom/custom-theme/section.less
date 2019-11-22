@@ -1,0 +1,273 @@
+//
+// Component: Section
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@section-padding-vertical:                        @global-medium-margin;
+@section-padding-vertical-m:                      100px;
+
+@section-xsmall-padding-vertical:                 30px;
+
+@section-small-padding-vertical:                  50px;
+
+@section-large-padding-vertical:                  30px;
+@section-large-padding-vertical-m:                150px;
+
+@section-xlarge-padding-vertical:                 @global-xlarge-margin;
+@section-xlarge-padding-vertical-m:               (@global-large-margin + @global-xlarge-margin);
+
+@section-default-background:                      @global-background;
+
+@section-muted-background:                        @global-muted-background;
+
+@section-primary-background:                      @global-primary-background;
+@section-primary-color-mode:                      light;
+
+@section-secondary-background:                    @global-secondary-background;
+@section-secondary-color-mode:                    light;
+
+
+// Component
+// ========================================================================
+
+.hook-section() {}
+
+
+// Style modifiers
+// ========================================================================
+
+.hook-section-default() {}
+
+.hook-section-muted() {}
+
+.hook-section-primary() {}
+
+.hook-section-secondary() {}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-section-misc() {
+
+    .section-cover [uk-parallax] {
+        transition-duration: .1s;
+        transition-property: transform, opacity;
+        transition-timing-function: linear;
+        will-change: transform, opacity;
+    }
+
+    .uk-section-medium {
+        padding-top: 60px;
+        padding-bottom: 60px;
+    }
+
+    .slideshow-content {
+        top: 26% !important;
+    }
+
+    #map {
+        height: 524px;
+    }
+
+    .section-cover {
+        margin-top: -83px;
+    }
+
+    .slider-activity {
+        margin-right: -140px;
+    }
+
+    .fancybox-thumbs__list a:before {
+        display: none;
+    }
+
+    .login,
+    .register {
+        padding: 105px 115px;
+    }
+
+    .login-content,
+    .register-content {
+        max-width: 470px;
+
+        form {
+            margin-top: 60px;
+        }
+    }
+
+    footer {
+        .uk-dropdown {
+            background-color: @global-secondary-background;
+            border: 1px solid rgba(255,255,255,.5);
+            border-radius: 3.5px;
+            min-width: 124px;
+        }
+    }
+
+    .section-puan {
+        .puan-container {
+            background-color: fade(@global-background, 20%);
+            border-radius: 2px;
+            width: 90px;
+            height: 80px;
+        }
+    }
+
+    .member-clup-home-card {
+        padding: 30px 40px;
+
+        .uk-label-muted {
+            padding: 8px 12px;
+
+            &.uk-disabled {
+                > * {
+                    opacity: .2;
+                }
+            }
+        }
+
+        .uk-pagination {
+            .uk-icon {
+                color: @global-emphasis-color;
+                background-color: @global-muted-background;
+                border-radius: 6px;
+                width: 34px;
+                height: 34px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            > * {
+                > * {
+                    font-size: @global-small-font-size;
+                    font-weight: bold;
+                    color: @global-emphasis-color;
+                    opacity: .5;
+                }
+
+                &.uk-active {
+                    > * {
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+    }
+
+    .member-clup-contact-card {
+        padding: 70px 40px 70px 60px;
+    }
+
+    .member-clup-special-offer-card {
+        padding: 40px;
+
+        .uk-card {
+            border-radius: 8px;
+            box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        .uk-card-body {
+            padding: 20px 20px 30px;
+        }
+    }
+
+    .member-clup-special-offer-list {
+        &.uk-list-divider {
+            > li {
+                &:nth-child(n+2) {
+                    margin-top: 4px;
+                    padding-top: 4px;
+                }
+
+                &:nth-child(2) {
+                    border-top: 0;
+                }
+            }
+        }
+
+        .uk-icon-button {
+            width: 28px;
+            height: 28px;
+        }
+    }
+
+    @media all and (min-width: 800px) {
+        .fancybox-thumbs {
+            top: auto;
+            width: auto;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 95px;
+            padding: 10px 10px 5px 10px;
+            box-sizing: border-box;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .fancybox-show-thumbs .fancybox-inner {
+            right: 0;
+            bottom: 95px;
+        }
+
+        .fancybox-thumbs-x .fancybox-thumbs__list {
+            margin: 0 auto;
+        }
+    }
+
+    @media (max-width: 959px) {
+        .uk-section-medium {
+            padding-top: 30px;
+            padding-bottom: 30px;
+        }
+
+        .section-cover {
+            margin-top: -73px;
+        }
+
+        .slider-activity {
+            margin-right: -15px;
+
+            .uk-grid-medium {
+                margin-left: -15px;
+
+                > * {
+                    padding-left: 15px;
+                }
+            }
+        }
+
+        .slider-outside-right {
+            margin-right: -15px;
+        }
+
+        .uk-section-small {
+            padding-top: 30px;
+            padding-bottom: 30px;
+        }
+
+        .contact-subnav-container {
+            padding: 0 15px;
+        }
+    }
+
+    @media (max-width: 639px) {
+        .button-list {
+            .uk-margin-small-left {
+                margin-left: 0 !important;
+            }
+
+            > * {
+                + * {
+                    margin-top: 10px;
+                }
+            }
+        }
+    }
+}

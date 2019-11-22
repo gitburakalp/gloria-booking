@@ -1,0 +1,130 @@
+//
+// Component: Text
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@text-lead-font-size:                           @global-large-font-size;
+@text-lead-line-height:                         1.5;
+@text-lead-color:                               @global-emphasis-color;
+
+@text-meta-font-size:                           @global-small-font-size;
+@text-meta-line-height:                         1.4;
+@text-meta-color:                               @global-muted-color;
+
+@text-small-font-size:                          @global-small-font-size;
+@text-small-line-height:                        1.5;
+
+@text-large-font-size:                          @global-large-font-size;
+@text-large-line-height:                        1.5;
+
+@text-bold-font-weight:                         700;
+
+@text-muted-color:                              @global-muted-color;
+@text-emphasis-color:                           @global-emphasis-color;
+@text-primary-color:                            #aca07f;
+@text-success-color:                            @global-success-background;
+@text-warning-color:                            @global-warning-background;
+@text-danger-color:                             @global-danger-background;
+
+@text-background-color:                         @global-primary-background;
+
+//
+// New
+//
+
+@text-meta-link-color:                          @text-meta-color;
+@text-meta-link-hover-color:                    @global-color;
+
+
+// Style modifiers
+// ========================================================================
+
+.hook-text-lead() {}
+
+.hook-text-meta() {
+
+    a { color: @text-meta-link-color; }
+
+    a:hover {
+        color: @text-meta-link-hover-color;
+        text-decoration: none;
+    }
+
+}
+
+
+// Size modifiers
+// ========================================================================
+
+.hook-text-small() {}
+
+.hook-text-large() {}
+
+
+// Background modifier
+// ========================================================================
+
+.hook-text-background() {}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-text-misc() {
+    .uk-text-xsmall {
+        font-size: 12px;
+    }
+
+    .uk-text-medium {
+        font-size: @global-medium-font-size;
+    }
+
+    .uk-text-xlight {
+        font-weight: 200;
+    }
+
+    .uk-text-normal {
+        font-weight: 400;
+    }
+
+    .uk-text-semi-bold {
+        font-weight: 600;
+    }
+
+    .uk-text-italic {
+        font-style: italic;
+    }
+
+    .uk-text-line-hight-1 {
+        line-height: 1;
+    }
+
+    .uk-text-line-hight {
+        line-height: 1.8;
+    }
+
+    .uk-line-clamp-2 {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        visibility: visible;
+    }
+}
+
+
+// Inverse
+// ========================================================================
+
+@inverse-text-lead-color:                      @inverse-global-color;
+@inverse-text-meta-color:                      @inverse-global-muted-color;
+@inverse-text-muted-color:                     @inverse-global-muted-color;
+@inverse-text-emphasis-color:                  @inverse-global-emphasis-color;
+@inverse-text-primary-color:                   @inverse-global-color;
+
+.hook-inverse-text-lead() {}
+.hook-inverse-text-meta() {}

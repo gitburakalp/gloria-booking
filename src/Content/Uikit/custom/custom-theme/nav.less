@@ -1,0 +1,269 @@
+//
+// Component: Nav
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@nav-item-padding-vertical:                     5px;
+@nav-item-padding-horizontal:                   0;
+
+@nav-sublist-padding-vertical:                  0;
+@nav-sublist-padding-left:                      20px;
+@nav-sublist-deeper-padding-left:               15px;
+@nav-sublist-item-padding-vertical:             7px;
+
+@nav-parent-icon-width:                         (@global-line-height * 1em);
+@nav-parent-icon-height:                        @nav-parent-icon-width;
+@nav-parent-icon-color:                         @global-color;
+
+@nav-header-padding-vertical:                   @nav-item-padding-vertical;
+@nav-header-padding-horizontal:                 @nav-item-padding-horizontal;
+@nav-header-font-size:                          @global-small-font-size;
+@nav-header-text-transform:                     uppercase;
+@nav-header-margin-top:                         @global-margin;
+
+@nav-divider-margin-vertical:                   5px;
+@nav-divider-margin-horizontal:                 0;
+
+@nav-default-item-color:                        @global-muted-color;
+@nav-default-item-hover-color:                  @global-color;
+@nav-default-item-active-color:                 @global-emphasis-color;
+@nav-default-header-color:                      @global-emphasis-color;
+@nav-default-divider-border-width:              @global-border-width;
+@nav-default-divider-border:                    @global-border;
+@nav-default-sublist-item-color:                @global-muted-color;
+@nav-default-sublist-item-hover-color:          @global-color;
+@nav-default-sublist-item-active-color:         @global-emphasis-color;
+
+@nav-primary-item-font-size:                    @global-font-size;
+@nav-primary-item-line-height:                  @global-line-height;
+@nav-primary-item-color:                        @global-color;
+@nav-primary-item-hover-color:                  @global-color;
+@nav-primary-item-active-color:                 @global-emphasis-color;
+@nav-primary-header-color:                      @global-emphasis-color;
+@nav-primary-divider-border-width:              @global-border-width;
+@nav-primary-divider-border:                    @global-border;
+@nav-primary-sublist-item-color:                #a4a4a4;
+@nav-primary-sublist-item-hover-color:          @global-emphasis-color;
+@nav-primary-sublist-item-active-color:         @global-emphasis-color;
+
+@internal-nav-parent-close-image:               "../../images/icons/chevron-down.svg";
+@internal-nav-parent-open-image:                "../../images/icons/chevron-up.svg";
+
+//
+// New
+//
+
+@nav-default-font-size:                         @global-medium-font-size;
+
+
+// Sublists
+// ========================================================================
+
+.hook-nav-sub() {
+    #modal-menu & {
+        margin-top: 25px;
+        padding-left: 0;
+
+        > li {
+            + li {
+                margin-top: 25px;
+            }
+            a {
+                line-height: 1;
+                padding: 0;
+            }
+        }
+    }
+}
+
+
+// Parent icon modifier
+// ========================================================================
+
+.hook-nav-parent-icon() {
+    opacity: .5;
+}
+
+
+// Header
+// ========================================================================
+
+.hook-nav-header() {}
+
+
+// Divider
+// ========================================================================
+
+.hook-nav-divider() {}
+
+
+// Default style modifier
+// ========================================================================
+
+.hook-nav-default() { font-size: @nav-default-font-size; }
+
+.hook-nav-default-item() {}
+
+.hook-nav-default-item-hover() {}
+
+.hook-nav-default-item-active() {}
+
+.hook-nav-default-header() {}
+
+.hook-nav-default-divider() {}
+
+
+// Primary style modifier
+// ========================================================================
+
+.hook-nav-primary() {
+    #modal-menu & {
+        > li {
+            > a {
+                line-height: 1;
+            }
+            + li {
+                margin-top: 50px;
+            }
+        }
+
+        + .uk-nav-primary {
+            margin-top: 50px;
+        }
+    }
+}
+
+.hook-nav-primary-item() {
+    padding: 8px 0;
+    opacity: .5;
+    transition: opacity .2s ease-in-out;
+    display: inline-block;
+}
+
+.hook-nav-primary-item-hover() {
+    opacity: .7;
+}
+
+.hook-nav-primary-item-active() {
+    border-bottom: @global-border-width solid @global-emphasis-color;
+    margin-bottom: 8px;
+    padding-bottom: 0;
+    opacity: 1;
+}
+
+.hook-nav-primary-header() {}
+
+.hook-nav-primary-divider() {}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-nav-misc() {
+    .nav-member-clup-container {
+        padding-top: 37px;
+    }
+
+    .nav-member-clup {
+        width: 260px;
+
+        > li {
+            > a {
+                color: @global-inverse-color;
+                box-shadow: 0 1px 0 0 #2d2d2d, 0 -1px 0 0 rgba(45, 45, 45, 0.5);
+                padding: 13px 33px;
+
+                &:hover, &:focus {
+                    color: fade(@global-inverse-color, 70%);
+                }
+            }
+
+            &.uk-active {
+                > a {
+                    color: @global-inverse-color;
+                    border-left: 2px solid @global-inverse-color;
+                }
+            }
+        }
+    }
+
+    @media (max-width: 959px) {
+        #modal-menu {
+            .uk-nav-primary {
+                > li {
+                    + li {
+                        margin-top: 25px;
+                    }
+
+                    a {
+                        font-size: 24px;
+                        font-weight: 300;
+                        line-height: normal;
+                        opacity: 1;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                    }
+                }
+            }
+
+            .modal-menu-container {
+                padding: 50px 0;
+                box-sizing: border-box;
+                height: calc(~"100vh - 73px");
+                min-height: 1px !important;
+                align-items: flex-start !important;
+            }
+        }
+    }
+}
+
+
+// Inverse
+// ========================================================================
+
+@inverse-nav-parent-icon-color:                 @inverse-global-color;
+@inverse-nav-default-item-color:                @inverse-global-muted-color;
+@inverse-nav-default-item-hover-color:          @inverse-global-color;
+@inverse-nav-default-item-active-color:         @inverse-global-emphasis-color;
+@inverse-nav-default-header-color:              @inverse-global-emphasis-color;
+@inverse-nav-default-divider-border:            @inverse-global-border;
+@inverse-nav-default-sublist-item-color:        @inverse-global-muted-color;
+@inverse-nav-default-sublist-item-hover-color:  @inverse-global-color;
+@inverse-nav-default-sublist-item-active-color: @inverse-global-emphasis-color;
+
+@inverse-nav-primary-item-color:                @inverse-global-muted-color;
+@inverse-nav-primary-item-hover-color:          @inverse-global-color;
+@inverse-nav-primary-item-active-color:         @inverse-global-emphasis-color;
+@inverse-nav-primary-header-color:              @inverse-global-emphasis-color;
+@inverse-nav-primary-divider-border:            @inverse-global-border;
+@inverse-nav-primary-sublist-item-color:        @inverse-global-muted-color;
+@inverse-nav-primary-sublist-item-hover-color:  @inverse-global-color;
+@inverse-nav-primary-sublist-item-active-color: @inverse-global-emphasis-color;
+
+.hook-inverse-nav-parent-icon() {
+    height: 30px;
+}
+
+.hook-inverse-nav-default-item() {}
+.hook-inverse-nav-default-item-hover() {}
+.hook-inverse-nav-default-item-active() {}
+.hook-inverse-nav-default-header() {}
+.hook-inverse-nav-default-divider() {}
+
+.hook-inverse-nav-primary-item() {
+    font-size: 32px;
+    font-weight: 300;
+    padding: 0;
+}
+.hook-inverse-nav-primary-item-hover() {}
+.hook-inverse-nav-primary-item-active() {
+    border: 0;
+    margin-bottom: 0;
+}
+.hook-inverse-nav-primary-header() {}
+.hook-inverse-nav-primary-divider() {}

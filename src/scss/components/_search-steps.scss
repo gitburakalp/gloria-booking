@@ -62,48 +62,48 @@
 
     &:nth-child(1) {
       &::before {
-        background-image: url(../../Storage/images/svg/select-room-icon.svg);
+        background-image: url(https://ghrcssstorage.blob.core.windows.net/static/Booking/logos/select-room-icon.svg);
       }
 
       &.is-past {
         &::before {
-          background-image: url(../../Storage/images/svg/select-room-icon--white.svg);
+          background-image: url(https://ghrcssstorage.blob.core.windows.net/static/Booking/logos/select-room-icon--white.svg);
         }
       }
     }
 
     &:nth-child(2) {
       &::before {
-        background-image: url(../../Storage/images/svg/transfer-icon.svg);
+        background-image: url(https://ghrcssstorage.blob.core.windows.net/static/Booking/logos/transfer-icon.svg);
       }
 
       &.is-past {
         &::before {
-          background-image: url(../../Storage/images/svg/transfer-icon--white.svg);
+          background-image: url(https://ghrcssstorage.blob.core.windows.net/static/Booking/logos/transfer-icon--white.svg);
         }
       }
     }
 
     &:nth-child(3) {
       &::before {
-        background-image: url(../../Storage/images/svg/guests-icon.svg);
+        background-image: url(https://ghrcssstorage.blob.core.windows.net/static/Booking/logos/guests-icon.svg);
       }
 
       &.is-past {
         &::before {
-          background-image: url(../../Storage/images/svg/guests-icon--white.svg);
+          background-image: url(https://ghrcssstorage.blob.core.windows.net/static/Booking/logos/guests-icon--white.svg);
         }
       }
     }
 
     &:nth-child(4) {
       &::before {
-        background-image: url(../../Storage/images/svg/payment-icon.svg);
+        background-image: url(https://ghrcssstorage.blob.core.windows.net/static/Booking/logos/payment-icon.svg);
       }
 
       &.is-past {
         &::before {
-          background-image: url(../../Storage/images/svg/payment-icon--white.svg);
+          background-image: url(https://ghrcssstorage.blob.core.windows.net/static/Booking/logos/payment-icon--white.svg);
         }
       }
     }

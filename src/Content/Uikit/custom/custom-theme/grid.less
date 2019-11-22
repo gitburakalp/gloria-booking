@@ -1,0 +1,54 @@
+//
+// Component: Grid
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@grid-gutter-horizontal:                        @global-gutter;
+@grid-gutter-vertical:                          @grid-gutter-horizontal;
+@grid-gutter-horizontal-l:                      50px;
+@grid-gutter-vertical-l:                        @grid-gutter-horizontal-l;
+
+@grid-small-gutter-horizontal:                  @global-small-gutter;
+@grid-small-gutter-vertical:                    @grid-small-gutter-horizontal;
+
+@grid-medium-gutter-horizontal:                 @global-gutter;
+@grid-medium-gutter-vertical:                   @grid-medium-gutter-horizontal;
+
+@grid-large-gutter-horizontal:                  @global-medium-gutter;
+@grid-large-gutter-vertical:                    @grid-large-gutter-horizontal;
+@grid-large-gutter-horizontal-l:                60px;
+@grid-large-gutter-vertical-l:                  90px;
+
+@grid-divider-border-width:                     @global-border-width;
+@grid-divider-border:                           @global-border;
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-grid-misc() {
+    .uk-grid-line {
+        margin-left: -2px;
+        > * {
+            padding-left: 2px;
+        }
+    }
+
+    .uk-grid-line>.uk-grid-margin {
+        margin-top: 2px;
+    }
+
+    .uk-grid>*>:last-child> *:last-child {
+        margin-bottom: 0;
+    }
+}
+
+
+// Inverse
+// ========================================================================
+
+@inverse-grid-divider-border:                  rgba(255, 255, 255, .1);

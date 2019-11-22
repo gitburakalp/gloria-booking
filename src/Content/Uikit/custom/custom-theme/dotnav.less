@@ -1,0 +1,108 @@
+//
+// Component: Dotnav
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@dotnav-margin-horizontal:                      8px;
+@dotnav-margin-vertical:                        @dotnav-margin-horizontal;
+
+@dotnav-item-width:                             4px;
+@dotnav-item-height:                            @dotnav-item-width;
+@dotnav-item-border-radius:                     50%;
+
+@dotnav-item-background:                        fade(@global-color, 50%);
+@dotnav-item-hover-background:                  fade(@global-color, 60%);
+@dotnav-item-onclick-background:                fade(@global-color, 60%);
+@dotnav-item-active-background:                 fade(@global-color, 100%);
+
+//
+// New
+//
+
+@dotnav-item-border-width:                           1px;
+
+@dotnav-item-border:                                 transparent;
+@dotnav-item-hover-border:                           transparent;
+@dotnav-item-onclick-border:                         transparent;
+@dotnav-item-active-border:                          transparent;
+
+
+// Component
+// ========================================================================
+
+.hook-dotnav() {}
+
+.hook-dotnav-item() {
+    border: @dotnav-item-border-width solid @dotnav-item-border;
+    transition: 0.2s ease-in-out;
+    transition-property: background-color, border-color;
+
+    em {
+        font-size: 15px;
+        text-indent: 0;
+        margin-top: -30px;
+        opacity: 0;
+        visibility: hidden;
+        transition: 1s ease;
+    }
+}
+
+.hook-dotnav-item-hover() { border-color: @dotnav-item-hover-border; }
+
+.hook-dotnav-item-onclick() { border-color: @dotnav-item-onclick-border; }
+
+.hook-dotnav-item-active() {
+    border-color: @dotnav-item-active-border;
+    em {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-dotnav-misc() {
+    .uk-light {
+        .uk-dotnav-secondary {
+            margin-left: -20px;
+
+            > * {
+                padding-left: 20px;
+
+                > * {
+                    background-color: transparent !important;
+                    border: 1px solid @global-background !important;
+                    width: 10px;
+                    height: 10px;
+                }
+
+                &.uk-active {
+                    > * {
+                        background-color: @global-background !important;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+// Inverse
+// ========================================================================
+
+@inverse-dotnav-item-background:               fade(@inverse-global-color, 50%);
+@inverse-dotnav-item-hover-background:         fade(@inverse-global-color, 90%);
+@inverse-dotnav-item-onclick-background:       fade(@inverse-global-color, 50%);
+@inverse-dotnav-item-active-background:        fade(@inverse-global-color, 100%);
+
+.hook-inverse-dotnav() {}
+.hook-inverse-dotnav-item() { border-color: transparent; }
+.hook-inverse-dotnav-item-hover() { border-color: transparent; }
+.hook-inverse-dotnav-item-onclick() { border-color: transparent; }
+.hook-inverse-dotnav-item-active() { border-color: transparent; }
