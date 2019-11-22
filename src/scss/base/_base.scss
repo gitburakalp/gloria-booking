@@ -1,7 +1,11 @@
+html {
+  font-size: $baseFontSize;
+}
+
 body {
   background-color: $color-light-grayish-blue;
-  color: $color-very-dark-gray;
-  line-height: 1.7;
+  color: $color-grayish-brown;
+  font-size: 1rem;
 }
 
 a {

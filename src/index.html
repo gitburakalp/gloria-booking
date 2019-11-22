@@ -35,10 +35,34 @@
                       </a>
                   </li>
               </ul>
-              <div class="rooms mt-4">
+              <div class="rooms">
                   <div class="rooms__item">
-                      <div class="rooms__images mb-3 mb-md-0">
-                          <img src="http://via.placeholder.com/370x270">
+                      <div class="rooms__images">
+                          <div class="rooms-container">
+                                <div class="rooms-wrapper">
+                                    <div class="rooms-slide">
+                                        <img src="http://via.placeholder.com/370x270">
+                                    </div>
+                                    <div class="rooms-slide">
+                                        <img src="http://via.placeholder.com/370x270">
+                                    </div>
+                                    <div class="rooms-slide">
+                                        <img src="http://via.placeholder.com/370x270">
+                                    </div>
+                                </div>
+                                <div class="rooms-controller">
+                                    <div class="prev">
+                                    </div>
+                                    <div class="next">
+                                    </div>
+                                </div>
+                          </div>
+                          <div class="rooms-details-section">
+                              <a class="rooms-details">
+                                <i class="information-circle">i</i>
+                                Detaylı Bilgi
+                              </a>
+                          </div>
                       </div>
                       <div class="rooms__info">
                         <h3 class="rooms__info-title">Select Villa</h3>
@@ -47,20 +71,79 @@
                           39m2<br>
                           2 Yetişkin + 1 Çocuk + 1 Bebek
                         </p>
-                          
-                          
-                          <div class="row justify-content-end">
-                              <div class="col-auto">
-                                  <a href="" class="btn btn--dark border-radius-5px btn--sm d-inline-block">
-                                      More
-                                  </a>
-                                  <a href="" class="btn btn--dull-brown border-radius-5px btn--sm d-inline-block">
-                                      BOOK NOW
-                                  </a>
-                              </div>
-                          </div>
+                        <div class="row justify-content-between align-items-center">
+                           <div class="col-auto">
+                                <p class="rooms__info-costs">
+                                    <a class="cost-info">
+                                        i
+                                    </a>
+                                    <span class="new">
+                                        12.320 TL
+                                    </span>
+                                    <span class="old">
+                                        14.320 TL
+                                    </span>
+                                </p>  
+                           </div> 
+                           <div class="col-auto pl-0">
+                                <a href="" class="btn btn--select">
+                                        SEÇ
+                                    </a>
+                           </div>
+                        </div>
                       </div>
                   </div>
+                  <div class="rooms__item">
+                        <div class="rooms__images">
+                            <div class="rooms-container">
+                                  <div class="rooms-wrapper">
+                                      <div class="rooms-slide">
+                                          <img src="http://via.placeholder.com/370x270">
+                                      </div>
+                                      <div class="rooms-slide">
+                                          <img src="http://via.placeholder.com/370x270">
+                                      </div>
+                                      <div class="rooms-slide">
+                                          <img src="http://via.placeholder.com/370x270">
+                                      </div>
+                                  </div>
+                                  <div class="rooms-controller">
+                                      <div class="prev">
+                                      </div>
+                                      <div class="next">
+                                      </div>
+                                  </div>
+                            </div>
+                        </div>
+                        <div class="rooms__info">
+                          <h3 class="rooms__info-title">Select Villa</h3>
+                          <p class="rooms__info-description">
+                            Ana binada<br>
+                            39m2<br>
+                            2 Yetişkin + 1 Çocuk + 1 Bebek
+                          </p>
+                          <div class="row justify-content-between align-items-center">
+                             <div class="col-auto">
+                                  <p class="rooms__info-costs">
+                                      <a class="cost-info">
+                                          i
+                                      </a>
+                                      <span class="new">
+                                          12.320 TL
+                                      </span>
+                                      <span class="old">
+                                          14.320 TL
+                                      </span>
+                                  </p>  
+                             </div> 
+                             <div class="col-auto pl-0">
+                                  <a href="" class="btn btn--select">
+                                          SEÇ
+                                      </a>
+                             </div>
+                          </div>
+                        </div>
+                    </div>
               </div>
           </div>
           <div class="reservation-details">
@@ -78,7 +161,7 @@
               </span>
               <div class="">
                 <p class="description mt-2">
-                    2 Yetişkin 1 Çocuk<span>14.625 TL</span>
+                    2 Yetişkin 1 Çocuk<span class="o1">14.625 TL</span>
                 </p>
               </div>
               <div class="reservation-details-block">
@@ -93,7 +176,7 @@
                     Ekonomik Transfer 19:40 <span>100 TL</span>
                 </p>
               </div>
-              <div class="reservation-details-block">
+              <div class="reservation-details-block reservation-details-trigger">
                   <div class="row align-items-center justify-content-between">
                       <div class="col-auto">
                         <span class="d-block">Toplam</span>
@@ -111,5 +194,8 @@
           </div>
       </section>
   </section>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/swiper.min.js"></script>
+  <script src="js/search.js"></script>
   </body>
 </html>
