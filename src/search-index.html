@@ -334,10 +334,10 @@
                             i
                           </a>
                           <span class="new">
-                            12.320 TL
+                            24.000,00 TL
                           </span>
                           <span class="old">
-                            14.320 TL
+                            24.320,00 TL
                           </span>
                         </p>
                       </div>
@@ -355,29 +355,29 @@
               <p class="title">
                 REZERVASYON ÖZETİ
               </p>
-              <p class="description mt-2">
+              <p class="description">
                 Gloria Serenity Resort
               </p>
-              <p class="description o1 mt-2">
+              <p class="description o1">
                 9 Kasım 2019 Cum - 14 Kasım 2019 Cmt <a class="">DÜZENLE</a>
               </p>
-              <span class="title--lg mt-5">
+              <span class="title--lg">
                 Select Villa
               </span>
-              <div class="mt-4">
-                <p class="description mt-2">
-                  2 Yetişkin 1 Çocuk<span class="o1 title--lg">14.625 TL</span>
+              <div class="">
+                <p class="description">
+                  2 Yetişkin 1 Çocuk<span class="o1 title--lg">24.000,00 TL</span>
                 </p>
               </div>
               <div class="reservation-details-block bordered">
                 <span class="title--sm">GELİŞ TRANSFERİ</span><span class="float-right">9 Kasım 2019 Cum</span>
-                <p class="description--lg mt-3">
+                <p class="description--lg">
                   Ekonomik Transfer 19:40 <span class="float-right">100 TL</span>
                 </p>
               </div>
               <div class="reservation-details-block bordered">
                 <span class="title--sm">GİDİŞ TRANSFERİ</span><span class="float-right">14 Kasım 2019 Cmt</span>
-                <p class="description--lg mt-3">
+                <p class="description--lg">
                   Ekonomik Transfer 19:40 <span>100 TL</span>
                 </p>
               </div>
@@ -386,11 +386,11 @@
                   <div class="col-auto">
                     <a class="reservation-details-button">
                       <span class="d-block total-text">Toplam</span>
-                      <span class="total-cost">14.625 TL</span>
+                      <span class="total-cost">24.000,00 TL</span>
                     </a>
                   </div>
-                  <div class="col-6">
-                    <a class="d-block btn--black">
+                  <div class="col-auto">
+                    <a href="#!" class="btn-continue">
                       DEVAM ET
                     </a>
                   </div>
@@ -671,6 +671,29 @@
         to: [checkoutYear, checkoutMonth, checkoutDay]
       }]).set('min', [checkoutYear, checkoutMonth, checkoutDay]).set('view', [checkoutYear, checkoutMonth, checkoutDay]);
     });
+
+    $('[id*=data-check].datepicker').each(function () {
+      $(this).change(function () {
+        $(this).siblings().val($(this).val())
+      });
+    });
+
+    var step = "@(ViewData["Step"].ToString())";
+
+    switch (step.toLowerCase()) {
+      case "rooms":
+        $("[data-search-step=rooms]").addClass("active");
+        break;
+      case "transfer":
+        $("[data-search-step=transfer]").addClass("active");
+        $("[data-search-step=transfer]").prevAll().addClass("is-past");
+      case "guest":
+        $("[data-search-step=guest]").addClass("active");
+        $("[data-search-step=guest]").prevAll().addClass("is-past");
+      case "payment":
+        $("[data-search-step=payment]").addClass("active");
+        $("[data-search-step=payment]").prevAll().addClass("is-past");
+    }
   </script>
 </body>
 

@@ -22,6 +22,7 @@
     max-width: 100%;
 
     &::before {
+      position: relative;
       content: "";
       text-align: center;
       font-family: $ff-sans-serif;
@@ -44,6 +45,7 @@
       color: $color-black;
       margin: auto;
       font-size: fluidSize(18, 30, 768, 1920);
+      z-index: 2;
     }
 
     &:not(:last-child) {
@@ -56,7 +58,11 @@
         width: 100%;
         height: 2px;
         background-color: $color-white;
-        z-index: -1;
+        z-index: 1;
+
+        @include media-breakpoint-up(xl) {
+          top: calc((100% - 44px) / 2);
+        }
       }
     }
 

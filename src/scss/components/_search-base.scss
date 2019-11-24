@@ -1,0 +1,205 @@
+.search__title {
+    font-family: $ff-sans-serif;
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: $color-black;
+
+    + * {
+        margin-top: 2.25rem;
+    }
+
+    &--regular{
+        @extend .search__title;
+        font-weight: 400;
+    }
+}
+
+.search {
+    &-main-headings {
+        background-color: $color-white;
+        padding:2.7rem 1.5rem;
+
+        + * {
+            margin-top: 0.5rem;
+        }
+    }
+
+    &-transfers {
+        position: relative;
+        padding:3rem 1.5rem;
+        background-color: $color-white;
+
+        font-family: $ff-sans-serif;
+        font-weight: bold;
+        color: $color-black;
+
+        + * {
+            margin-top: 3rem;
+        }
+
+        span {
+            display: block;
+            text-align: center;
+            font-size: 1.6rem;
+        }
+
+        @include media-breakpoint-down(sm)  {
+            [class*=col-] {
+                + [class*=col-] {
+                    margin-top: 2.25rem;
+                }
+            }
+        }
+
+        .transfers {
+
+            &-list {
+                display: flex;
+                flex-flow: row wrap;
+                justify-content: space-between;
+
+                @include media-breakpoint-up(md) {
+                    justify-content: center;
+                }
+
+                + * {
+                    margin-top: 3rem;
+                }
+
+                > * {
+                    position: relative;
+                    min-height: 1px;
+                    width: calc(50% - 0.5rem);
+
+                    @include media-breakpoint-down(sm) {
+                        &:nth-child(n+3) {
+                            margin-top: 1rem;
+                        }
+                    }
+
+                    @include media-breakpoint-up(md) {
+                        width: 170px;
+
+                        + * {
+                            margin-left: 3rem;
+                        }
+                    }
+                }
+
+                &-item {
+                    border: 1px solid $color-white-200;
+                    padding: 2rem 0.9rem;
+                    min-height: 21rem;
+
+                    display: flex;
+                    flex-direction: column;
+                    justify-content:space-around;
+                }
+            }
+
+            &-img {
+                width: 100%;
+                max-width: 100%;
+                height: auto;
+
+                + * {
+                    margin-top: 2rem;
+                }
+            }
+
+            &-name {
+                + * {
+                    margin-top: 1.7rem;
+                }
+            }
+
+            &-cost {
+                + * {
+                    margin-top: 0.7rem;
+                }
+            }
+        }
+    }
+}
+
+.fake {
+    &-checkbox {
+        input[type=checkbox],input[type=radio] {
+            position: absolute;
+            left: -9999px;
+            opacity: 0;
+
+            + label {
+                &::before {
+                    content: "";
+                    position: absolute;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    bottom: 1.6rem;
+                    width: 1.6rem;
+                    height: 1.6rem;
+                    border-radius: 5px;
+                    border: 2px solid $color-white-200;
+                }
+            }
+
+            &:checked + label {
+                &::before {
+                    border-color: $color-black;
+                    background-color: $color-black;
+                }
+            }
+        }
+
+
+        label {
+            display: block;
+            margin-bottom: 1.6rem;
+        }
+    }
+
+    &-placeholder {
+        position: relative;
+        background-color: $color-white;
+        
+        label {
+            position: absolute;
+            top: 0;
+            left: 1.5rem;
+            font-size: 1.6rem;
+            
+            transform: translateY(50%);
+            transform-origin: 0% 100%;
+            z-index: 0;
+            color: $color-warm-grey-200;
+        }
+
+        .form-control {
+            position: relative;
+            background-color: transparent;
+            z-index: 1;
+        }
+
+        &.focused {
+            label {
+                top: 0;
+                left: 0;
+                transform: scale(0.8) translate(0%, -125%);
+                transition: transform .2s ease-out, color .2s ease-out;
+                color: $color-black;
+            }
+        }
+    }
+}
+
+.form-control {
+    font-size: 1.6rem;
+    padding: 1.15rem 1.5rem;
+    height: auto;
+    border-radius: 0;
+    color: $color-black;
+
+    &:focus {
+        color: $color-black;
+    }
+}

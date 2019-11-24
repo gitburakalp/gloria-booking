@@ -9,7 +9,6 @@ input {
     &-module {
         @include media-breakpoint-up(xl) {
             min-height: calc(100vh - 600px);
-            padding: 3rem 0 18rem;
         }
     }
     

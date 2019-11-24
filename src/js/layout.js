@@ -18936,6 +18936,8 @@ $(function () {
         var checkoutMonth = checkoutDate.getMonth();
         var checkoutYear = checkoutDate.getFullYear();
 
+        $('#data-checkout1.datepicker-disabled').pickadate('picker').open();
+
         $('#data-checkout1.datepicker-disabled').pickadate('picker').set('enable', [{
             from: [1970, 1, 1],
             to: [checkoutYear, checkoutMonth, checkoutDay]
@@ -19734,12 +19736,6 @@ function checkModernInput() {
   $(".fake-placeholder").each(function() {
     var $this = $(this),
       $inpElem = $this.find("input,textarea");
-
-    $this.parent().addClass("pt-3");
-    $this
-      .parent()
-      .siblings("[class*=col]")
-      .addClass("pt-3");
 
     $inpElem.on("focus", function() {
       $this.addClass("focused");

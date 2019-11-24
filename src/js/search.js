@@ -249,12 +249,6 @@ function checkModernInput() {
     var $this = $(this),
       $inpElem = $this.find("input,textarea");
 
-    $this.parent().addClass("pt-3");
-    $this
-      .parent()
-      .siblings("[class*=col]")
-      .addClass("pt-3");
-
     $inpElem.on("focus", function() {
       $this.addClass("focused");
     });

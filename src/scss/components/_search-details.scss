@@ -31,17 +31,27 @@
     font-size: 1.4rem;
     font-weight: 400;
     color: $color-black;
-
     background-color: $color-white;
 
-    @include media-breakpoint-down(lg) {
-      padding: 3rem 1.5rem 1.5rem;
+    > * {
+      + * {
+        margin-top: 1rem;
+
+        &:nth-child(2n+1) {
+          margin-top: 1.5rem;
+        }
+
+        &.bordered {
+          padding-top: 1.5rem !important;
+        }
+      }
     }
 
     @include media-breakpoint-up(xl) {
       display: flex;
       flex-direction: column;
       padding: 3rem 2.3rem 1rem;
+      min-height: 440px;
 
       > *:last-child {
         margin-top: auto;;
@@ -82,14 +92,10 @@
       position: relative;
 
       &.bordered {
-        margin-top: 2rem;
-        padding-top: 1.6rem;
         border-top: 1px solid rgba($color-black, 0.35);
       }
 
       @include media-breakpoint-up(xl) {
-        margin-top: 8px;
-        padding-top: 8px;
         border-top: 1px solid rgba($color-black, 0.35);
       }
     }
@@ -99,6 +105,23 @@
       left: 0;
       bottom: 0;
       z-index: 99;
+
+      &.is-shown {
+        padding-left: 2.3rem;
+        padding-right: 2.3rem;
+
+        > * {
+          &:nth-child(1) {
+            padding-top: 3rem;
+          }
+
+          &:last-child {
+            margin-left: -2.3rem;
+            margin-right: -2.3rem;
+            margin-top: 3rem;
+          }
+        }
+      }
     }
 
     @include media-breakpoint-up(xl) {
@@ -150,8 +173,13 @@
       @include media-breakpoint-down(lg) {
         background-color: $color-white;
         box-shadow: 0 -2px 5px 0 rgba(0, 0, 0, 0.07);
-        margin: 1.5rem -1.5rem 0;
-        padding: 1.4rem 1.5rem 0;
+
+        padding: 1.5rem !important;
+      }
+
+      @include media-breakpoint-up(xl) {
+        margin-top: 1.5rem;
+        padding-top: 1.5rem;
       }
 
       .total {
@@ -160,9 +188,18 @@
         }
 
         &-cost {
-          font-size: 2.4rem;
+          font-size: 2rem;
           font-weight: bold;
           line-height: 1;
+
+          @include media-breakpoint-up(md) {
+            font-size: fluidSize(20,24,768,1280);
+          }
+          
+          @include media-breakpoint-up(xl) {
+            font-size: 2rem;
+            letter-spacing: -0.05vw;
+          }
         }
       }
     }

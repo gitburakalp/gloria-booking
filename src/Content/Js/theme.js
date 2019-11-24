@@ -159,6 +159,8 @@
         var checkoutMonth = checkoutDate.getMonth();
         var checkoutYear = checkoutDate.getFullYear();
 
+        $('#data-checkout1.datepicker-disabled').pickadate('picker').open();
+
         $('#data-checkout1.datepicker-disabled').pickadate('picker').set('enable', [{
             from: [1970, 1, 1],
             to: [checkoutYear, checkoutMonth, checkoutDay]
