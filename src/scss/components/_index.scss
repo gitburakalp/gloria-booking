@@ -1,5 +1,5 @@
 input {
-  [type="number"] {
+  [type='number'] {
     &::-webkit-inner-spin-button,
     ::-webkit-outer-spin-button {
       -webkit-appearance: none;
@@ -112,12 +112,13 @@ input {
   cursor: pointer;
 }
 
-@import "search-module";
-@import "hotel-select-panel";
-@import "search-details";
-@import "search-steps";
-@import "rooms";
-@import "sliders";
-@import "transfers";
-@import "payment";
-@import "search-base"
+@import 'search-module';
+@import 'hotel-select-panel';
+@import 'search-details';
+@import 'search-steps';
+@import 'rooms';
+@import 'sliders';
+@import 'transfers';
+@import 'payment';
+@import 'search-base';
+@import 'guests';

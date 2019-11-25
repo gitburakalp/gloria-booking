@@ -1,0 +1,14 @@
+.honeyMoonTrigger {
+  position: relative;
+
+  + * {
+    margin-top: 2rem;
+    display: none;
+
+    .search-title--regular-small {
+      + * {
+        margin-top: 2rem;
+      }
+    }
+  }
+}

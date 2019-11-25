@@ -18775,1162 +18775,743 @@ tpl:'<div class="fancybox-share"><h1>{{SHARE}}</h1><p><a class="fancybox-share__
  * http://amsul.github.io/pickadate.js/date.htm
  */
 !function(a){"function"==typeof define&&define.amd?define(["./picker","jquery"],a):"object"==typeof exports?module.exports=a(require("./picker.js"),require("jquery")):a(Picker,jQuery)}(function(a,b){function c(a,b){var c=this,d=a.$node[0],e=d.value,f=a.$node.data("value"),g=f||e,h=f?b.formatSubmit:b.format,i=function(){return d.currentStyle?"rtl"==d.currentStyle.direction:"rtl"==getComputedStyle(a.$root[0]).direction};c.settings=b,c.$node=a.$node,c.queue={min:"measure create",max:"measure create",now:"now create",select:"parse create validate",highlight:"parse navigate create validate",view:"parse create validate viewset",disable:"deactivate",enable:"activate"},c.item={},c.item.clear=null,c.item.disable=(b.disable||[]).slice(0),c.item.enable=-function(a){return!0===a[0]?a.shift():-1}(c.item.disable),c.set("min",b.min).set("max",b.max).set("now"),g?c.set("select",g,{format:h,defaultValue:!0}):c.set("select",null).set("highlight",c.item.now),c.key={40:7,38:-7,39:function(){return i()?-1:1},37:function(){return i()?1:-1},go:function(a){var b=c.item.highlight,d=new Date(b.year,b.month,b.date+a);c.set("highlight",d,{interval:a}),this.render()}},a.on("render",function(){a.$root.find("."+b.klass.selectMonth).on("change",function(){var c=this.value;c&&(a.set("highlight",[a.get("view").year,c,a.get("highlight").date]),a.$root.find("."+b.klass.selectMonth).trigger("focus"))}),a.$root.find("."+b.klass.selectYear).on("change",function(){var c=this.value;c&&(a.set("highlight",[c,a.get("view").month,a.get("highlight").date]),a.$root.find("."+b.klass.selectYear).trigger("focus"))})},1).on("open",function(){var d="";c.disabled(c.get("now"))&&(d=":not(."+b.klass.buttonToday+")"),a.$root.find("button"+d+", select").attr("disabled",!1)},1).on("close",function(){a.$root.find("button, select").attr("disabled",!0)},1)}var d=7,e=a._;c.prototype.set=function(a,b,c){var d=this,e=d.item;return null===b?("clear"==a&&(a="select"),e[a]=b,d):(e["enable"==a?"disable":"flip"==a?"enable":a]=d.queue[a].split(" ").map(function(e){return b=d[e](a,b,c)}).pop(),"select"==a?d.set("highlight",e.select,c):"highlight"==a?d.set("view",e.highlight,c):a.match(/^(flip|min|max|disable|enable)$/)&&(e.select&&d.disabled(e.select)&&d.set("select",e.select,c),e.highlight&&d.disabled(e.highlight)&&d.set("highlight",e.highlight,c)),d)},c.prototype.get=function(a){return this.item[a]},c.prototype.create=function(a,c,d){var f,g=this;return c=void 0===c?a:c,c==-1/0||c==1/0?f=c:b.isPlainObject(c)&&e.isInteger(c.pick)?c=c.obj:b.isArray(c)?(c=new Date(c[0],c[1],c[2]),c=e.isDate(c)?c:g.create().obj):c=e.isInteger(c)||e.isDate(c)?g.normalize(new Date(c),d):g.now(a,c,d),{year:f||c.getFullYear(),month:f||c.getMonth(),date:f||c.getDate(),day:f||c.getDay(),obj:f||c,pick:f||c.getTime()}},c.prototype.createRange=function(a,c){var d=this,f=function(a){return!0===a||b.isArray(a)||e.isDate(a)?d.create(a):a};return e.isInteger(a)||(a=f(a)),e.isInteger(c)||(c=f(c)),e.isInteger(a)&&b.isPlainObject(c)?a=[c.year,c.month,c.date+a]:e.isInteger(c)&&b.isPlainObject(a)&&(c=[a.year,a.month,a.date+c]),{from:f(a),to:f(c)}},c.prototype.withinRange=function(a,b){return a=this.createRange(a.from,a.to),b.pick>=a.from.pick&&b.pick<=a.to.pick},c.prototype.overlapRanges=function(a,b){var c=this;return a=c.createRange(a.from,a.to),b=c.createRange(b.from,b.to),c.withinRange(a,b.from)||c.withinRange(a,b.to)||c.withinRange(b,a.from)||c.withinRange(b,a.to)},c.prototype.now=function(a,b,c){return b=new Date,c&&c.rel&&b.setDate(b.getDate()+c.rel),this.normalize(b,c)},c.prototype.navigate=function(a,c,d){var e,f,g,h,i=b.isArray(c),j=b.isPlainObject(c),k=this.item.view;if(i||j){for(j?(f=c.year,g=c.month,h=c.date):(f=+c[0],g=+c[1],h=+c[2]),d&&d.nav&&k&&k.month!==g&&(f=k.year,g=k.month),e=new Date(f,g+(d&&d.nav?d.nav:0),1),f=e.getFullYear(),g=e.getMonth();new Date(f,g,h).getMonth()!==g;)h-=1;c=[f,g,h]}return c},c.prototype.normalize=function(a){return a.setHours(0,0,0,0),a},c.prototype.measure=function(a,b){var c=this;return e.isInteger(b)?b=c.now(a,b,{rel:b}):b?"string"==typeof b&&(b=c.parse(a,b)):b="min"==a?-1/0:1/0,b},c.prototype.viewset=function(a,b){return this.create([b.year,b.month,1])},c.prototype.validate=function(a,c,d){var f,g,h,i,j=this,k=c,l=d&&d.interval?d.interval:1,m=-1===j.item.enable,n=j.item.min,o=j.item.max,p=m&&j.item.disable.filter(function(a){if(b.isArray(a)){var d=j.create(a).pick;d<c.pick?f=!0:d>c.pick&&(g=!0)}return e.isInteger(a)}).length;if((!d||!d.nav&&!d.defaultValue)&&(!m&&j.disabled(c)||m&&j.disabled(c)&&(p||f||g)||!m&&(c.pick<=n.pick||c.pick>=o.pick)))for(m&&!p&&(!g&&l>0||!f&&l<0)&&(l*=-1);j.disabled(c)&&(Math.abs(l)>1&&(c.month<k.month||c.month>k.month)&&(c=k,l=l>0?1:-1),c.pick<=n.pick?(h=!0,l=1,c=j.create([n.year,n.month,n.date+(c.pick===n.pick?0:-1)])):c.pick>=o.pick&&(i=!0,l=-1,c=j.create([o.year,o.month,o.date+(c.pick===o.pick?0:1)])),!h||!i);)c=j.create([c.year,c.month,c.date+l]);return c},c.prototype.disabled=function(a){var c=this,d=c.item.disable.filter(function(d){return e.isInteger(d)?a.day===(c.settings.firstDay?d:d-1)%7:b.isArray(d)||e.isDate(d)?a.pick===c.create(d).pick:b.isPlainObject(d)?c.withinRange(d,a):void 0});return d=d.length&&!d.filter(function(a){return b.isArray(a)&&"inverted"==a[3]||b.isPlainObject(a)&&a.inverted}).length,-1===c.item.enable?!d:d||a.pick<c.item.min.pick||a.pick>c.item.max.pick},c.prototype.parse=function(a,b,c){var d=this,f={};return b&&"string"==typeof b?(c&&c.format||(c=c||{},c.format=d.settings.format),d.formats.toArray(c.format).map(function(a){var c=d.formats[a],g=c?e.trigger(c,d,[b,f]):a.replace(/^!/,"").length;c&&(f[a]=b.substr(0,g)),b=b.substr(g)}),[f.yyyy||f.yy,+(f.mm||f.m)-1,f.dd||f.d]):b},c.prototype.formats=function(){function a(a,b,c){var d=a.match(/[^\x00-\x7F]+|\w+/)[0];return c.mm||c.m||(c.m=b.indexOf(d)+1),d.length}function b(a){return a.match(/\w+/)[0].length}return{d:function(a,b){return a?e.digits(a):b.date},dd:function(a,b){return a?2:e.lead(b.date)},ddd:function(a,c){return a?b(a):this.settings.weekdaysShort[c.day]},dddd:function(a,c){return a?b(a):this.settings.weekdaysFull[c.day]},m:function(a,b){return a?e.digits(a):b.month+1},mm:function(a,b){return a?2:e.lead(b.month+1)},mmm:function(b,c){var d=this.settings.monthsShort;return b?a(b,d,c):d[c.month]},mmmm:function(b,c){var d=this.settings.monthsFull;return b?a(b,d,c):d[c.month]},yy:function(a,b){return a?2:(""+b.year).slice(2)},yyyy:function(a,b){return a?4:b.year},toArray:function(a){return a.split(/(d{1,4}|m{1,4}|y{4}|yy|!.)/g)},toString:function(a,b){var c=this;return c.formats.toArray(a).map(function(a){return e.trigger(c.formats[a],c,[0,b])||a.replace(/^!/,"")}).join("")}}}(),c.prototype.isDateExact=function(a,c){var d=this;return e.isInteger(a)&&e.isInteger(c)||"boolean"==typeof a&&"boolean"==typeof c?a===c:(e.isDate(a)||b.isArray(a))&&(e.isDate(c)||b.isArray(c))?d.create(a).pick===d.create(c).pick:!(!b.isPlainObject(a)||!b.isPlainObject(c))&&d.isDateExact(a.from,c.from)&&d.isDateExact(a.to,c.to)},c.prototype.isDateOverlap=function(a,c){var d=this,f=d.settings.firstDay?1:0;return e.isInteger(a)&&(e.isDate(c)||b.isArray(c))?(a=a%7+f)===d.create(c).day+1:e.isInteger(c)&&(e.isDate(a)||b.isArray(a))?(c=c%7+f)===d.create(a).day+1:!(!b.isPlainObject(a)||!b.isPlainObject(c))&&d.overlapRanges(a,c)},c.prototype.flipEnable=function(a){var b=this.item;b.enable=a||(-1==b.enable?1:-1)},c.prototype.deactivate=function(a,c){var d=this,f=d.item.disable.slice(0);return"flip"==c?d.flipEnable():!1===c?(d.flipEnable(1),f=[]):!0===c?(d.flipEnable(-1),f=[]):c.map(function(a){for(var c,g=0;g<f.length;g+=1)if(d.isDateExact(a,f[g])){c=!0;break}c||(e.isInteger(a)||e.isDate(a)||b.isArray(a)||b.isPlainObject(a)&&a.from&&a.to)&&f.push(a)}),f},c.prototype.activate=function(a,c){var d=this,f=d.item.disable,g=f.length;return"flip"==c?d.flipEnable():!0===c?(d.flipEnable(1),f=[]):!1===c?(d.flipEnable(-1),f=[]):c.map(function(a){var c,h,i,j;for(i=0;i<g;i+=1){if(h=f[i],d.isDateExact(h,a)){c=f[i]=null,j=!0;break}if(d.isDateOverlap(h,a)){b.isPlainObject(a)?(a.inverted=!0,c=a):b.isArray(a)?(c=a,c[3]||c.push("inverted")):e.isDate(a)&&(c=[a.getFullYear(),a.getMonth(),a.getDate(),"inverted"]);break}}if(c)for(i=0;i<g;i+=1)if(d.isDateExact(f[i],a)){f[i]=null;break}if(j)for(i=0;i<g;i+=1)if(d.isDateOverlap(f[i],a)){f[i]=null;break}c&&f.push(c)}),f.filter(function(a){return null!=a})},c.prototype.nodes=function(a){var b=this,c=b.settings,f=b.item,g=f.now,h=f.select,i=f.highlight,j=f.view,k=f.disable,l=f.min,m=f.max,n=function(a,b){return c.firstDay&&(a.push(a.shift()),b.push(b.shift())),e.node("thead",e.node("tr",e.group({min:0,max:d-1,i:1,node:"th",item:function(d){return[a[d],c.klass.weekdays,'scope=col title="'+b[d]+'"']}})))}((c.showWeekdaysFull?c.weekdaysFull:c.weekdaysShort).slice(0),c.weekdaysFull.slice(0)),o=function(a){return e.node("div"," ",c.klass["nav"+(a?"Next":"Prev")]+(a&&j.year>=m.year&&j.month>=m.month||!a&&j.year<=l.year&&j.month<=l.month?" "+c.klass.navDisabled:""),"data-nav="+(a||-1)+" "+e.ariaAttr({role:"button",controls:b.$node[0].id+"_table"})+' title="'+(a?c.labelMonthNext:c.labelMonthPrev)+'"')},p=function(){var d=c.showMonthsShort?c.monthsShort:c.monthsFull;return c.selectMonths?e.node("select",e.group({min:0,max:11,i:1,node:"option",item:function(a){return[d[a],0,"value="+a+(j.month==a?" selected":"")+(j.year==l.year&&a<l.month||j.year==m.year&&a>m.month?" disabled":"")]}}),c.klass.selectMonth,(a?"":"disabled")+" "+e.ariaAttr({controls:b.$node[0].id+"_table"})+' title="'+c.labelMonthSelect+'"'):e.node("div",d[j.month],c.klass.month)},q=function(){var d=j.year,f=!0===c.selectYears?5:~~(c.selectYears/2);if(f){var g=l.year,h=m.year,i=d-f,k=d+f;if(g>i&&(k+=g-i,i=g),h<k){var n=i-g,o=k-h;i-=n>o?o:n,k=h}return e.node("select",e.group({min:i,max:k,i:1,node:"option",item:function(a){return[a,0,"value="+a+(d==a?" selected":"")]}}),c.klass.selectYear,(a?"":"disabled")+" "+e.ariaAttr({controls:b.$node[0].id+"_table"})+' title="'+c.labelYearSelect+'"')}return e.node("div",d,c.klass.year)};return e.node("div",(c.selectYears?q()+p():p()+q())+o()+o(1),c.klass.header)+e.node("table",n+e.node("tbody",e.group({min:0,max:5,i:1,node:"tr",item:function(a){var f=c.firstDay&&0===b.create([j.year,j.month,1]).day?-7:0;return[e.group({min:d*a-j.day+f+1,max:function(){return this.min+d-1},i:1,node:"td",item:function(a){a=b.create([j.year,j.month,a+(c.firstDay?1:0)]);var d=h&&h.pick==a.pick,f=i&&i.pick==a.pick,n=k&&b.disabled(a)||a.pick<l.pick||a.pick>m.pick,o=e.trigger(b.formats.toString,b,[c.format,a]);return[e.node("div",a.date,function(b){return b.push(j.month==a.month?c.klass.infocus:c.klass.outfocus),g.pick==a.pick&&b.push(c.klass.now),d&&b.push(c.klass.selected),f&&b.push(c.klass.highlighted),n&&b.push(c.klass.disabled),b.join(" ")}([c.klass.day]),"data-pick="+a.pick+" "+e.ariaAttr({role:"gridcell",label:o,selected:!(!d||b.$node.val()!==o)||null,activedescendant:!!f||null,disabled:!!n||null})),"",e.ariaAttr({role:"presentation"})]}})]}})),c.klass.table,'id="'+b.$node[0].id+'_table" '+e.ariaAttr({role:"grid",controls:b.$node[0].id,readonly:!0}))+e.node("div",e.node("button",c.today,c.klass.buttonToday,"type=button data-pick="+g.pick+(a&&!b.disabled(g)?"":" disabled")+" "+e.ariaAttr({controls:b.$node[0].id}))+e.node("button",c.clear,c.klass.buttonClear,"type=button data-clear=1"+(a?"":" disabled")+" "+e.ariaAttr({controls:b.$node[0].id}))+e.node("button",c.close,c.klass.buttonClose,"type=button data-close=true "+(a?"":" disabled")+" "+e.ariaAttr({controls:b.$node[0].id})),c.klass.footer)},c.defaults=function(a){return{labelMonthNext:"Next month",labelMonthPrev:"Previous month",labelMonthSelect:"Select a month",labelYearSelect:"Select a year",monthsFull:["January","February","March","April","May","June","July","August","September","October","November","December"],monthsShort:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],weekdaysFull:["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],weekdaysShort:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],today:"Today",clear:"Clear",close:"Close",closeOnSelect:!0,closeOnClear:!0,updateInput:!0,format:"d mmmm, yyyy",klass:{table:a+"table",header:a+"header",navPrev:a+"nav--prev",navNext:a+"nav--next",navDisabled:a+"nav--disabled",month:a+"month",year:a+"year",selectMonth:a+"select--month",selectYear:a+"select--year",weekdays:a+"weekday",day:a+"day",disabled:a+"day--disabled",selected:a+"day--selected",highlighted:a+"day--highlighted",now:a+"day--today",infocus:a+"day--infocus",outfocus:a+"day--outfocus",footer:a+"footer",buttonClear:a+"button--clear",buttonToday:a+"button--today",buttonClose:a+"button--close"}}}(a.klasses().picker+"__"),a.extend("pickadate",c)});
-$(function () {
+$(function() {
+  //var tl = new TimelineMax({ onUpdate: updatePercentage });
+  //var tl2 = new TimelineMax();
+  //const controller = new ScrollMagic.Controller();
 
-    //var tl = new TimelineMax({ onUpdate: updatePercentage });
-    //var tl2 = new TimelineMax();
-    //const controller = new ScrollMagic.Controller();
+  //tl.from('.mains', 0, { scale: 1, ease: Power0.easeNone });
+  //tl.to('.mains', 1, { scale: 1.2, ease: Power0.easeNone });
 
-    //tl.from('.mains', 0, { scale: 1, ease: Power0.easeNone });
-    //tl.to('.mains', 1, { scale: 1.2, ease: Power0.easeNone });
+  //tl.from('.clouds', 0, { y: 0, ease: Power0.easeNone });
+  //tl.to('.clouds', .5, { y: 80, ease: Power0.easeNone });
 
-    //tl.from('.clouds', 0, { y: 0, ease: Power0.easeNone });
-    //tl.to('.clouds', .5, { y: 80, ease: Power0.easeNone });
+  //tl.from('.lights', 0, { x: -120, ease: Power0.easeNone });
+  //tl.to('.lights', .5, { x: 0, ease: Power0.easeNone });
 
-    //tl.from('.lights', 0, { x: -120, ease: Power0.easeNone });
-    //tl.to('.lights', .5, { x: 0, ease: Power0.easeNone });
+  //tl.from('.texts', 0, { y: 0, opacity: 1, ease: Power0.easeNone });
+  //tl.to('.texts', 1, { y: -100, opacity: 0, ease: Power0.easeNone });
 
-    //tl.from('.texts', 0, { y: 0, opacity: 1, ease: Power0.easeNone });
-    //tl.to('.texts', 1, { y: -100, opacity: 0, ease: Power0.easeNone });
+  //const scene = new ScrollMagic.Scene({
+  //    triggerElement: ".sticky",
+  //    triggerHook: "onLeave",
+  //    duration: "100%"
+  //})
+  //    .setPin(".sticky")
+  //    .setTween(tl)
+  //    .addTo(controller);
 
-    //const scene = new ScrollMagic.Scene({
-    //    triggerElement: ".sticky",
-    //    triggerHook: "onLeave",
-    //    duration: "100%"
-    //})
-    //    .setPin(".sticky")
-    //    .setTween(tl)
-    //    .addTo(controller);
+  //const scene2 = new ScrollMagic.Scene({
+  //    triggerElement: "blockquote"
+  //})
+  //    .setTween(tl2)
+  //    .addTo(controller);
 
-    //const scene2 = new ScrollMagic.Scene({
-    //    triggerElement: "blockquote"
-    //})
-    //    .setTween(tl2)
-    //    .addTo(controller);
+  //function updatePercentage() {
+  //    //percent.innerHTML = (tl.progress() *100 ).toFixed();
+  //    tl.progress();
+  //    console.log(tl.progress());
+  //}
 
-    //function updatePercentage() {
-    //    //percent.innerHTML = (tl.progress() *100 ).toFixed();
-    //    tl.progress();
-    //    console.log(tl.progress());
-    //}
+  /* Card Hover Full Image */
 
-    /* Card Hover Full Image */
+  var image = $('.card-full-image');
+  var imageContainer = $('.card-full-image-container');
 
-    var image = $('.card-full-image');
-    var imageContainer = $('.card-full-image-container');
+  $('.card-hover-full-image')
+    .mouseover(function() {
+      var index = $(this).index();
 
-    $('.card-hover-full-image').mouseover(function () {
-        var index = $(this).index();
-        
-        image.siblings().removeClass('uk-active');
-        image.eq(index).addClass('uk-active');
+      image.siblings().removeClass('uk-active');
+      image.eq(index).addClass('uk-active');
 
-        imageContainer.addClass('uk-active');
-        
-    }).mouseout(function () {
-        image.removeClass('uk-active');
-        imageContainer.removeClass('uk-active');
+      imageContainer.addClass('uk-active');
+    })
+    .mouseout(function() {
+      image.removeClass('uk-active');
+      imageContainer.removeClass('uk-active');
     });
 
-    /* Picker Date */
-
-    var lang = $('html').attr('lang');
-
-    var date = new Date();
-    date.setDate(date.getDate() - 1);
-
-    var year = date.getUTCFullYear();
-    var month = date.getUTCMonth();
-    var day = date.getUTCDate();
-
-    var pickerOptions = {
-        "tr": {
-            monthsFull: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
-            weekdaysShort: ["Pa", "Pt", "Sl", "Ça", "Pe", "Cu", "Ct"],
-            monthsShort: ['Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara'],
-            weekdaysFull: ['Pazar', 'Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi'],
-            showMonthsShort: true,
-            firstDay: 1,
-            format: 'dd.mm.yyyy',
-            today: 'Bugün',
-            clear: 'Temizle',
-            close: 'Kapat',
-            labelMonthNext: 'Sonraki Ay',
-            labelMonthPrev: 'Önceki Ay',
-            labelMonthSelect: 'Ayı Seç',
-            labelYearSelect: 'Yılı Seç'
-        },
-        "en": {
-            monthsFull: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-            weekdaysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-            monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-            weekdaysFull: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-            showMonthsShort: true,
-            firstDay: 1,
-            format: 'dd.mm.yyyy',
-            today: 'Today',
-            clear: 'Clear',
-            close: 'Close',
-            labelMonthNext: 'Next month',
-            labelMonthPrev: 'Previous month',
-            labelMonthSelect: 'Select a month',
-            labelYearSelect: 'Select a year',
-        },
-        "de": {
-            monthsFull: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
-            weekdaysShort: ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"],
-            monthsShort: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
-            weekdaysFull: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
-            showMonthsShort: true,
-            firstDay: 1,
-            format: 'dd.mm.yyyy',
-            today: 'Heute',
-            clear: 'Klar',
-            close: 'Schließen',
-            labelMonthNext: 'Nächsten Monat',
-            labelMonthPrev: 'Vorheriger Monat',
-            labelMonthSelect: 'Wähle einen Monat',
-            labelYearSelect: 'Wählen Sie ein Jahr aus',
-        },
-        "ru": {
-            monthsFull: ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
-            weekdaysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-            monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-            weekdaysFull: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
-            showMonthsShort: true,
-            firstDay: 1,
-            format: 'dd.mm.yyyy',
-            today: 'Today',
-            clear: 'Clear',
-            close: 'Close',
-            labelMonthNext: 'Next month',
-            labelMonthPrev: 'Previous month',
-            labelMonthSelect: 'Select a month',
-            labelYearSelect: 'Select a year',
-        },
-    };
-
-    if ($('.datepicker').hasClass('datepicker-disabled')) {
-        pickerOptions["de"].disable =
-            pickerOptions["ru"].disable =
-            pickerOptions["en"].disable =
-            pickerOptions["tr"].disable = [{ from: [1970, 1, 1], to: [year, month, day] }];
-    }
-
-    if (pickerOptions[lang]) {
-        $('.datepicker').pickadate(pickerOptions[lang]);
-    } else {
-        $('.datepicker').pickadate(pickerOptions["en"]);
-    }
-
-    $('#data-checkin1.datepicker-disabled').change(function () {
-        var checkinValue = $(this).val().split('.');
-        var checkinDay = parseInt(checkinValue[0]);
-        var checkinMonthIndex = parseInt(checkinValue[1]) - 1;
-        var checkinYear = parseInt(checkinValue[2]);
-
-        var checkoutDate = new Date(checkinYear, checkinMonthIndex, checkinDay);
-        checkoutDate.setDate(checkoutDate.getDate() + 1);
-
-        var checkoutDay = checkoutDate.getDate();
-        var checkoutMonth = checkoutDate.getMonth();
-        var checkoutYear = checkoutDate.getFullYear();
-
-        $('#data-checkout1.datepicker-disabled').pickadate('picker').open();
-
-        $('#data-checkout1.datepicker-disabled').pickadate('picker').set('enable', [{
-            from: [1970, 1, 1],
-            to: [checkoutYear, checkoutMonth, checkoutDay]
-        }]).set('min', [checkoutYear, checkoutMonth, checkoutDay]).set('view', [checkoutYear, checkoutMonth, checkoutDay]);
-    });
-
-    $('#data-checkin2.datepicker-disabled').change(function () {
-        var checkinValue = $(this).val().split('.');
-        var checkinDay = parseInt(checkinValue[0]);
-        var checkinMonthIndex = parseInt(checkinValue[1]) - 1;
-        var checkinYear = parseInt(checkinValue[2]);
-
-        var checkoutDate = new Date(checkinYear, checkinMonthIndex, checkinDay);
-        checkoutDate.setDate(checkoutDate.getDate() + 1);
-
-        var checkoutDay = checkoutDate.getDate();
-        var checkoutMonth = checkoutDate.getMonth();
-        var checkoutYear = checkoutDate.getFullYear();
-
-        $('#data-checkout2.datepicker-disabled').pickadate('picker').set('enable', [{
-            from: [1970, 1, 1],
-            to: [checkoutYear, checkoutMonth, checkoutDay]
-        }]).set('min', [checkoutYear, checkoutMonth, checkoutDay]).set('view', [checkoutYear, checkoutMonth, checkoutDay]);
-    });
-
-    $('.form-nav > a').click(function () {
-        $(this).siblings().removeClass('uk-active');
-        $(this).addClass('uk-active');
-    });
-
-    $('.form-nav-airplane').click(function () {
-        $('.item-airplane').removeClass('uk-hidden');
-    });
-
-    $('.form-nav-otel').click(function () {
-        $('.item-airplane').addClass('uk-hidden');
-    });
-
-    /* Fancybox */
-
-    $.fancybox.defaults.btnTpl.virtual = '<button data-virtual-tour class="fancybox-button uk-light"><span uk-icon="icon: icn-360; ratio: .5;"></span></button>';
-
-    $('body').on('click', '[data-virtual-tour]', function () {
-        window.open('http://www.smkproduction.eu5.org', '_blank');
-    });
-
-
-    $('[data-fancybox="images"]').fancybox({
-        margin: [44, 0, 22, 0],
-        thumbs: {
-            autoStart: true,
-            axis: 'x'
-        },
-        buttons: [
-            'zoom',
-            'slideShow',
-            'virtual',
-            'thumbs',
-            'close'
-        ]
-    });
-
-    /* Toogle Plan */
-
-    var planButton = $('.button-plan');
-
-    planButton.click(function () {
-        
-        var dataToggle = $(this).attr('data-toggle');
-
-        $('html, body').animate({ scrollTop: $('#' + dataToggle).position().top - 84 }, 'slow');
-
-    });
-
-    /* Mask */
-
-    $('.mask-phone').mask('(000) 000-0000');
-
-    $('.mask-date').mask('00.00.0000');
-
-    $('.mask-phone-code').mask('A00', {
-        translation: {
-            'A': {
-                pattern: /[+/]/,
-                fallback: '+',
-                optional: false
-            }
-        },
-        onComplete: function () {
-            $('.mask-phone').focus();
-        }
-    });
-
-    $('.mask-phone').keydown(function (e) {
-        var valLenght = $(this).val().length;
-
-        if (e.keyCode === 8 && valLenght < 1) {
-            $('.mask-phone-code').focus();
-        }
-    });
-
-    /* Validation */
-
-    var message = "Lütfen boşlukları doldurunuz.";
-    var lettersonly = "Lütfen sadece harf giriniz.";
-    var phone = "Lütfen 10 haneli bir telefon numarası giriniz.";
-    var email = "Lütfen geçerli bir e-posta adresi giriniz.";
-
-    if (lang === 'en') {
-        message = 'Please fill in the blank.';
-        lettersonly = "Please enter only letters.";
-        phone = "Please enter a 10-digit phone number.";
-        email = "Please enter a valid email addres.";
-    } else if (lang === 'ru') {
-        message = 'Пожалуйста заполните анкету.';
-        lettersonly = "Пожалуйста, введите только буквы.";
-        phone = "Пожалуйста, введите 10-значный номер телефона.";
-        email = "Пожалуйста, введите действительный адрес электронной почты.";
-    } else if (lang === 'de') {
-        message = 'Bitte füllen Sie das Feld aus.';
-        lettersonly = "Bitte geben Sie nur Buchstaben ein.";
-        phone = "Bitte geben Sie eine 10-stellige Telefonnummer ein.";
-        email = "Bitte geben Sie eine gültige E-Mail-Adresse ein.";
-    }
-
-    $.validator.addMethod("lettersonly", function (value, element) {
-        return this.optional(element) || /^[a-zA-ZçÇğĞıİöÖşŞüÜ\s]*$/.test(value);
-    });
-
-    $('#form-contact').validate({
-        rules: {
-            FirstName: {
-                required: true,
-                lettersonly: true
-            },
-            LastName: {
-                required: true,
-                lettersonly: true
-            },
-            Email: {
-                required: true,
-                email: true
-            },
-            Phone: {
-                required: true,
-                minlength: 14
-            },
-            PhoneCode: {
-                required: true
-            },
-            Message: {
-                required: true
-            },
-            Aggreement: {
-                required: true
-            }
-        },
-        messages: {
-            FirstName: {
-                required: message,
-                lettersonly: lettersonly
-            },
-            LastName: {
-                required: message,
-                lettersonly: lettersonly
-            },
-            Email: {
-                required: message,
-                email: email
-            },
-            Phone: {
-                required: message,
-                minlength: phone
-            },
-            PhoneCode: {
-                required: message
-            },
-            Message: {
-                required: message
-            },
-            Aggreement: {
-                required: message
-            }
-        },
-        submitHandler: function (form) {
-            form.submit();
-        }
-    });
-
-    $('#form-sales').validate({
-        rules: {
-            Type: {
-                required: true
-            },
-            FirstName: {
-                required: true,
-                lettersonly: true
-            },
-            LastName: {
-                required: true,
-                lettersonly: true
-            },
-            Email: {
-                required: true,
-                email: true
-            },
-            Phone: {
-                required: true,
-                minlength: 14
-            },
-            PhoneCode: {
-                required: true
-            },
-            Message: {
-                required: true
-            },
-            Aggreement: {
-                required: true
-            }
-        },
-        messages: {
-            Type: {
-                required: message
-            },
-            FirstName: {
-                required: message,
-                lettersonly: lettersonly
-            },
-            LastName: {
-                required: message,
-                lettersonly: lettersonly
-            },
-            Email: {
-                required: message,
-                email: email
-            },
-            Phone: {
-                required: message,
-                minlength: phone
-            },
-            PhoneCode: {
-                required: message
-            },
-            Message: {
-                required: message
-            },
-            Aggreement: {
-                required: message
-            }
-        },
-        submitHandler: function (form) {
-            form.submit();
-        }
-    });
-
-    $('#form-special-offer').validate({
-        rules: {
-            FirstName: {
-                required: true,
-                lettersonly: true
-            },
-            LastName: {
-                required: true,
-                lettersonly: true
-            },
-            Email: {
-                required: true,
-                email: true
-            },
-            Phone: {
-                required: true,
-                minlength: 14
-            },
-            PhoneCode: {
-                required: true
-            },
-            Message: {
-                required: true
-            },
-            Aggreement: {
-                required: true
-            }
-        },
-        messages: {
-            FirstName: {
-                required: message,
-                lettersonly: lettersonly
-            },
-            LastName: {
-                required: message,
-                lettersonly: lettersonly
-            },
-            Email: {
-                required: message,
-                email: email
-            },
-            Phone: {
-                required: message,
-                minlength: phone
-            },
-            PhoneCode: {
-                required: message
-            },
-            Message: {
-                required: message
-            },
-            Aggreement: {
-                required: message
-            }
-        },
-        submitHandler: function (form) {
-            form.submit();
-        }
-    });
-
-    $('#form-human-resources').validate({
-        rules: {
-            FirstName: {
-                required: true,
-                lettersonly: true
-            },
-            LastName: {
-                required: true,
-                lettersonly: true
-            },
-            Email: {
-                required: true,
-                email: true
-            },
-            Phone: {
-                required: true,
-                minlength: 14
-            },
-            PhoneCode: {
-                required: true
-            },
-            Message: {
-                required: true
-            },
-            File: {
-                required: true
-            },
-            Aggreement: {
-                required: true
-            }
-        },
-        messages: {
-            FirstName: {
-                required: message,
-                lettersonly: lettersonly
-            },
-            LastName: {
-                required: message,
-                lettersonly: lettersonly
-            },
-            Email: {
-                required: message,
-                email: email
-            },
-            Phone: {
-                required: message,
-                minlength: phone
-            },
-            PhoneCode: {
-                required: message
-            },
-            Message: {
-                required: message
-            },
-            File: {
-                required: message
-            },
-            Aggreement: {
-                required: message
-            }
-        },
-        submitHandler: function (form) {
-            form.submit();
-        }
-    });
-
-    $("#form-member-clup-login").validate();
-
-    $("#form-member-clup-register").validate();
-
-    $("#form-member-clup-contact").validate();
-
-
-    /* Reservation */
-
-	function getCookie(name) {
-		var value = "; " + document.cookie;
-		var parts = value.split("; " + name + "=");
-		if (parts.length === 2) return parts.pop().split(";").shift();
-        return "";
-	}
-
-	Date.prototype.addDays = function (days) {
-		var dat = new Date(this.valueOf());
-		dat.setDate(dat.getDate() + days);
-		return dat;
-	};
-
-	function getDateFormatted(dateI) {
-		let dd = dateI.getDate();
-		let mm = dateI.getMonth() + 1;
-		let yyyy = dateI.getFullYear();
-		if (dd < 10) {
-			dd = '0' + dd;
-		}
-		if (mm < 10) {
-			mm = '0' + mm;
-		}
-		return yyyy + '-' + mm + '-' + dd;
-	}
-
-	$("[click-prevent]").click(function (e) {
-		e.preventDefault();
-    });
-
-    $("#form-reservation #child").change(function () {
-        let val = parseInt($(this).val());
-        const olds = ["", "one", "two", "three", "four"];
-
-        const childContaioner = $(".child-old");
-        if (val <= 0) childContaioner.addClass("uk-hidden");
-        else childContaioner.removeClass("uk-hidden");
-
-        for (index in olds) {
-            let element = $(`.child-old .old-${olds[index]}`);
-            if (index <= val && index > 0) element.removeClass("uk-hidden");
-            else element.addClass("uk-hidden");
-        }
-    });
-
-    $(document).on('submit', "#form-reservation", function (event) {
-		event.preventDefault();
-
-		let form = $(this);
-        let airportContent = form.find("[name='airport']").val();
-		let airportCode = airportContent ? airportContent.split('-')[0] : '';
-        let checkin = form.find("[name='checkin']").val().replace(/\//g, '.');
-        let checkout = form.find("[name='checkout']").val().replace(/\//g, '.');
-        let hotelId = form.find("[name='hotel']").val();
-        let room = form.find("[name='room']").val();
-        let adult = form.find("[name='adult']").val();
-        let children = form.find("[name='child']").val();
-        let childAge1 = form.find("[name='childAge1']").val();
-        let childAge2 = form.find("[name='childAge2']").val();
-        let childAge3 = form.find("[name='childAge3']").val();
-        let childAge4 = form.find("[name='childAge4']").val();
-
-        //console.log(airportContent, airportCode, checkin, checkout, hotelId, room, adult, children);
-
-        let checkInMessage = $('#checkInMessage').val();
-        let checkOutMessage = $('#checkOutMessage').val();
-
-        if (checkin === "") {
-            UIkit.modal.dialog('<p class="uk-modal-body"><span class="uk-text-warning uk-margin-small-right" uk-icon="icon: warning; ratio: 1.2;"></span>' + checkInMessage + '</p>');
-		} else if (checkout === "") {
-            UIkit.modal.dialog('<p class="uk-modal-body"><span class="uk-text-warning uk-margin-small-right" uk-icon="icon: warning; ratio: 1.2;"></span>' + checkOutMessage + '</p>');
-		} else {
-			if (typeof window.current_language === "undefined" || window.current_language === "") {
-				window.current_language = "tr";
-			}
-
-            var paramsArr = ["https://gloria.hweb.com/?"];
-			paramsArr.push("fromCityAirport=".concat(encodeURIComponent(airportCode)));
-			paramsArr.push("fromAirport=".concat(""));
-			paramsArr.push("fromDate=".concat(checkin));
-			paramsArr.push("toDate=".concat(checkout));
-			paramsArr.push("rnum=".concat(room));
-            paramsArr.push("cnum1=".concat(children));
-            paramsArr.push("chdAge11=".concat(childAge1));
-            paramsArr.push("chdAge12=".concat(childAge2));
-            paramsArr.push("chdAge13=".concat(childAge3));
-            paramsArr.push("chdAge14=".concat(childAge4));
-            paramsArr.push("anum1=".concat(adult));
-			paramsArr.push("hotelId=".concat(hotelId));
-			paramsArr.push("noNeedFlight=".concat(0));
-			paramsArr.push("Lang=".concat(window.current_language));
-			paramsArr.push("noreq=".concat(true));
-			paramsArr.push("hwebref=".concat("bwidget"));
-			paramsArr.push("_ga=".concat(getCookie("_ga")));
-			paramsArr.push("_gid=".concat(getCookie("_gid")));
-
-            var url = paramsArr.join("&");
-            //console.log(url);
-			window.open(url, '_blank');
-
-		}
-
-		return false;
-    });
-
-    /* Airport Auto Complete */
-
-    var currentLanguage = $('html').attr('lang');
-
-    $("#airport").each(function (key, el) {
-        $(el).autocomplete({
-            delay: 100,
-            minLength: 3,
-            source: function (request, response) {
-                $.ajax({
-                    url: "https://alibey.hweb.com/commons/airports/" + currentLanguage + "/" + request.term,
-                    data: {},
-                    success: function (data) {
-                        response(data.map(function (item) {
-                            return item.airportCode + " " + item.airportName + " " + item.cityName + " " + item.countryCode
-                        }));
-                    }
-                });
-            }
-        });
-    });
-
-    /* View All Button */
-
-    var viewAllButton = $('.view-all-button');
-
-    viewAllButton.click(function () {
-        $(this).toggleClass('uk-active');
-
-        if (viewAllButton.hasClass('uk-active')) {
-            if (lang === 'en') {
-                viewAllButton.text('Hide');
-            } else if (lang === 'tr') {
-                viewAllButton.text('Gizle');
-            } else if (lang === 'de') {
-                viewAllButton.text('Verstecken');
-            } else if (lang === 'ru') {
-                viewAllButton.text('скрывать');
-            }
-        } else {
-            if (lang === 'en') {
-                viewAllButton.text('View All');
-            } else if (lang === 'tr') {
-                viewAllButton.text('Tümünü Göster');
-            } else if (lang === 'de') {
-                viewAllButton.text('Alle Anzeigen');
-            } else if (lang === 'ru') {
-                viewAllButton.text('ПОСМОТРЕТЬ ВСЕ');
-            }
-        }
-    });
-
-});
-function setDatepickers(elem, lang) {
-  $(elem).each(function(i) {
-    var $this = $(this),
-      ww = $(window).width();
-
-    $this.on("click", function() {
-      $("html,body").animate(
-        {
-          scrollTop: $this.offset().top / 1.5
-        },
-        1000
-      );
-    });
-
-    var container = $this.parent();
-    var format = "";
-    var startDay = "";
-
-    if (ww < 767) {
-      container = $this
-        .closest(".search-panel-expand")
-        .find(".dates:nth-child(1)");
-    }
-
-    if (lang != "en") {
-      format = "DD.MM.YYYY";
-      startDay = "monday";
-    } else {
-      format = "MM.DD.YYYY";
-      startDay = "sunday";
-    }
-
-    var datepicker = $this.dateRangePicker({
-      language: lang,
-      container: container,
-      format: format,
-      startOfWeek: startDay,
-      // autoClose: true,
-      singleDate: true,
-      singleMonth: true,
-      showTopbar: false,
-      startDate: new Date(),
-      selectForward: true,
-      customOpenAnimation: function(cb) {
-        $(this).fadeIn(300, cb);
-      },
-      customCloseAnimation: function(cb) {
-        $(this).fadeOut(300, cb);
-      },
-      setValue: function(s) {
-        if ($(this).attr("readonly")) {
-          $(this).val(s);
-          $(this)
-            .siblings()
-            .val(s);
-        }
-      },
-      beforeShowDay:
-        i == 1
-          ? function(t) {
-              var checkinDate = moment($("#inpCheckinDate").val(), format);
-              var checkinDay = checkinDate.format("DD");
-              var checkinMonth = checkinDate.format("MM");
-              var checkinYear = checkinDate.format("YYYY");
-              // console.log(checkinDay,checkinMonth,checkinYear);
-
-              var valid = !(
-                t.getDate() <= checkinDay &&
-                t.getMonth() == checkinMonth - 1 &&
-                t.getFullYear() == checkinYear
-              ); //disable saturday and sunday
-              var _class = "";
-              var _tooltip = valid ? "" : "";
-              return [valid, _class, _tooltip];
-            }
-          : "",
-      customTopBar: i == 0 ? "Check In" : "Check Out"
-    });
-
-    if (i == 0) {
-      datepicker.eq(i).bind("datepicker-change", function(event, obj) {
-        var $this = $(this);
-
-        if ($this.val() != "") {
-          var newDate = moment(obj.value, format)
-            .add(3, "days")
-            .format(format);
-          $("#inpCheckoutDate")
-            .data("dateRangePicker")
-            .setStart(newDate)
-            .open();
-        }
-      });
-    }
-  });
-}
-
-function setChildDatepickers(elem, lang) {
-  $(elem).each(function() {
-    var $this = $(this),
-      ww = $(window).width();
-
-    $this.on("click", function() {
-      $("html,body").animate(
-        {
-          scrollTop: $this.offset().top / 1.5
-        },
-        1000
-      );
-    });
-
-    var format = "";
-    var startDay = "";
-
-    if (lang != "en") {
-      format = "DD.MM.YYYY";
-      startDay = "monday";
-    } else {
-      format = "MM.DD.YYYY";
-      startDay = "sunday";
-    }
-
-    var dateYear = new Date();
-
-    var childStartDate = moment(
-      `01.01.${dateYear.getFullYear() - 11}`,
-      format
-    ).format(format);
-
-    $this.dateRangePicker({
-      language: lang,
-      container:
-        ww < 768 ? $this.closest("[data-hidden-child]") : $this.parent(),
-      format: format,
-      startOfWeek: startDay,
-      autoClose: true,
-      singleDate: true,
-      singleMonth: true,
-      monthSelect: true,
-      startDate: childStartDate,
-      yearSelect: function(current) {
-        return [dateYear.getFullYear() - 11, dateYear.getFullYear()];
-      },
-      showTopbar: false,
-      customOpenAnimation: function(cb) {
-        $(this).fadeIn(300, cb);
-      },
-      customCloseAnimation: function(cb) {
-        $(this).fadeOut(300, cb);
-      },
-      setValue: function(s) {
-        if ($(this).attr("readonly")) {
-          $(this).val(s);
-          $(this)
-            .siblings()
-            .val(s);
-        }
-      }
-    });
-
-    var value = $(this)
-      .siblings('input[type="hidden"]')
-      .val();
-
-    // console.log(value);
-
-    if (value != "") {
-      var newDate = moment(value, format).format(format);
-      $(this)
-        .data("dateRangePicker")
-        .setStart(newDate);
-    }
-  });
-}
-
-function setSingleDatepicker(elem, lang, minDate) {
-  var format = "",
-    $this = $(elem);
-
-  if (lang != "en") {
-    format = "DD.MM.YYYY";
+  /* Picker Date */
+
+  var lang = $('html').attr('lang');
+
+  var date = new Date();
+  date.setDate(date.getDate() - 1);
+
+  var year = date.getUTCFullYear();
+  var month = date.getUTCMonth();
+  var day = date.getUTCDate();
+
+  var pickerOptions = {
+    tr: {
+      monthsFull: ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'],
+      weekdaysShort: ['Pa', 'Pt', 'Sl', 'Ça', 'Pe', 'Cu', 'Ct'],
+      monthsShort: ['Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara'],
+      weekdaysFull: ['Pazar', 'Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi'],
+      showMonthsShort: true,
+      firstDay: 1,
+      format: 'dd.mm.yyyy',
+      today: 'Bugün',
+      clear: 'Temizle',
+      close: 'Kapat',
+      labelMonthNext: 'Sonraki Ay',
+      labelMonthPrev: 'Önceki Ay',
+      labelMonthSelect: 'Ayı Seç',
+      labelYearSelect: 'Yılı Seç',
+      selectMonths: $('.datepicker.datepicker-disabled').hasClass('datepicker-selectable'),
+      selectYears: $('.datepicker.datepicker-disabled').hasClass('datepicker-selectable') ? 100 : false,
+      max: $('.datepicker.datepicker-disabled').hasClass('datepicker-selectable'),
+    },
+    en: {
+      monthsFull: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+      weekdaysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+      monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+      weekdaysFull: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+      showMonthsShort: true,
+      firstDay: 1,
+      format: 'dd.mm.yyyy',
+      today: 'Today',
+      clear: 'Clear',
+      close: 'Close',
+      labelMonthNext: 'Next month',
+      labelMonthPrev: 'Previous month',
+      labelMonthSelect: 'Select a month',
+      labelYearSelect: 'Select a year',
+      selectMonths: $('.datepicker.datepicker-disabled').hasClass('datepicker-selectable'),
+      selectYears: $('.datepicker.datepicker-disabled').hasClass('datepicker-selectable') ? 100 : false,
+      max: $('.datepicker.datepicker-disabled').hasClass('datepicker-selectable'),
+    },
+    de: {
+      monthsFull: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
+      weekdaysShort: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
+      monthsShort: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
+      weekdaysFull: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
+      showMonthsShort: true,
+      firstDay: 1,
+      format: 'dd.mm.yyyy',
+      today: 'Heute',
+      clear: 'Klar',
+      close: 'Schließen',
+      labelMonthNext: 'Nächsten Monat',
+      labelMonthPrev: 'Vorheriger Monat',
+      labelMonthSelect: 'Wähle einen Monat',
+      labelYearSelect: 'Wählen Sie ein Jahr aus',
+      selectMonths: $('.datepicker.datepicker-disabled').hasClass('datepicker-selectable'),
+      selectYears: $('.datepicker.datepicker-disabled').hasClass('datepicker-selectable') ? 100 : false,
+      max: $('.datepicker.datepicker-disabled').hasClass('datepicker-selectable'),
+    },
+    ru: {
+      monthsFull: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+      weekdaysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+      monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+      weekdaysFull: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
+      showMonthsShort: true,
+      firstDay: 1,
+      format: 'dd.mm.yyyy',
+      today: 'Today',
+      clear: 'Clear',
+      close: 'Close',
+      labelMonthNext: 'Next month',
+      labelMonthPrev: 'Previous month',
+      labelMonthSelect: 'Select a month',
+      labelYearSelect: 'Select a year',
+      selectMonths: $('.datepicker.datepicker-disabled').hasClass('datepicker-selectable'),
+      selectYears: $('.datepicker.datepicker-disabled').hasClass('datepicker-selectable') ? 100 : false,
+      max: $('.datepicker.datepicker-disabled').hasClass('datepicker-selectable'),
+    },
+  };
+
+  if ($('.datepicker').hasClass('datepicker-disabled')) {
+    pickerOptions['de'].disable = pickerOptions['ru'].disable = pickerOptions['en'].disable = pickerOptions['tr'].disable = [{ from: [1970, 1, 1], to: [year, month, day] }];
+  }
+
+  if (pickerOptions[lang]) {
+    $('.datepicker').pickadate(pickerOptions[lang]);
   } else {
-    format = "MM.DD.YYYY";
+    $('.datepicker').pickadate(pickerOptions['en']);
   }
 
-  $this.each(function() {
-    var config = {
-      singleDate: true,
-      singleMonth: true,
-      showShortcuts: false,
-      showTopbar: false,
-      language: lang,
-      container: $(this).parent(),
-      format: format,
-      monthSelect: true,
-      yearSelect: [1950, moment().get("year")],
-      customOpenAnimation: function(cb) {
-        $(this).fadeIn(300, cb);
+  $('#data-checkin1.datepicker-disabled').change(function() {
+    var checkinValue = $(this)
+      .val()
+      .split('.');
+    var checkinDay = parseInt(checkinValue[0]);
+    var checkinMonthIndex = parseInt(checkinValue[1]) - 1;
+    var checkinYear = parseInt(checkinValue[2]);
+
+    var checkoutDate = new Date(checkinYear, checkinMonthIndex, checkinDay);
+    checkoutDate.setDate(checkoutDate.getDate() + 1);
+
+    var checkoutDay = checkoutDate.getDate();
+    var checkoutMonth = checkoutDate.getMonth();
+    var checkoutYear = checkoutDate.getFullYear();
+
+    $('#data-checkout1.datepicker-disabled')
+      .pickadate('picker')
+      .open();
+
+    $('#data-checkout1.datepicker-disabled')
+      .pickadate('picker')
+      .set('enable', [
+        {
+          from: [1970, 1, 1],
+          to: [checkoutYear, checkoutMonth, checkoutDay],
+        },
+      ])
+      .set('min', [checkoutYear, checkoutMonth, checkoutDay])
+      .set('view', [checkoutYear, checkoutMonth, checkoutDay]);
+  });
+
+  $('#data-checkin2.datepicker-disabled').change(function() {
+    var checkinValue = $(this)
+      .val()
+      .split('.');
+    var checkinDay = parseInt(checkinValue[0]);
+    var checkinMonthIndex = parseInt(checkinValue[1]) - 1;
+    var checkinYear = parseInt(checkinValue[2]);
+
+    var checkoutDate = new Date(checkinYear, checkinMonthIndex, checkinDay);
+    checkoutDate.setDate(checkoutDate.getDate() + 1);
+
+    var checkoutDay = checkoutDate.getDate();
+    var checkoutMonth = checkoutDate.getMonth();
+    var checkoutYear = checkoutDate.getFullYear();
+
+    $('#data-checkout2.datepicker-disabled')
+      .pickadate('picker')
+      .set('enable', [
+        {
+          from: [1970, 1, 1],
+          to: [checkoutYear, checkoutMonth, checkoutDay],
+        },
+      ])
+      .set('min', [checkoutYear, checkoutMonth, checkoutDay])
+      .set('view', [checkoutYear, checkoutMonth, checkoutDay]);
+  });
+
+  $('.form-nav > a').click(function() {
+    $(this)
+      .siblings()
+      .removeClass('uk-active');
+    $(this).addClass('uk-active');
+  });
+
+  $('.form-nav-airplane').click(function() {
+    $('.item-airplane').removeClass('uk-hidden');
+  });
+
+  $('.form-nav-otel').click(function() {
+    $('.item-airplane').addClass('uk-hidden');
+  });
+
+  /* Fancybox */
+
+  $.fancybox.defaults.btnTpl.virtual = '<button data-virtual-tour class="fancybox-button uk-light"><span uk-icon="icon: icn-360; ratio: .5;"></span></button>';
+
+  $('body').on('click', '[data-virtual-tour]', function() {
+    window.open('http://www.smkproduction.eu5.org', '_blank');
+  });
+
+  $('[data-fancybox="images"]').fancybox({
+    margin: [44, 0, 22, 0],
+    thumbs: {
+      autoStart: true,
+      axis: 'x',
+    },
+    buttons: ['zoom', 'slideShow', 'virtual', 'thumbs', 'close'],
+  });
+
+  /* Toogle Plan */
+
+  var planButton = $('.button-plan');
+
+  planButton.click(function() {
+    var dataToggle = $(this).attr('data-toggle');
+
+    $('html, body').animate({ scrollTop: $('#' + dataToggle).position().top - 84 }, 'slow');
+  });
+
+  /* Mask */
+
+  $('.mask-phone').mask('(000) 000-0000');
+
+  $('.mask-date').mask('00.00.0000');
+
+  $('.mask-phone-code').mask('A00', {
+    translation: {
+      A: {
+        pattern: /[+/]/,
+        fallback: '+',
+        optional: false,
       },
-      customCloseAnimation: function(cb) {
-        $(this).fadeOut(300, cb);
+    },
+    onComplete: function() {
+      $('.mask-phone').focus();
+    },
+  });
+
+  $('.mask-phone').keydown(function(e) {
+    var valLenght = $(this).val().length;
+
+    if (e.keyCode === 8 && valLenght < 1) {
+      $('.mask-phone-code').focus();
+    }
+  });
+
+  /* Validation */
+
+  var message = 'Lütfen boşlukları doldurunuz.';
+  var lettersonly = 'Lütfen sadece harf giriniz.';
+  var phone = 'Lütfen 10 haneli bir telefon numarası giriniz.';
+  var email = 'Lütfen geçerli bir e-posta adresi giriniz.';
+
+  if (lang === 'en') {
+    message = 'Please fill in the blank.';
+    lettersonly = 'Please enter only letters.';
+    phone = 'Please enter a 10-digit phone number.';
+    email = 'Please enter a valid email addres.';
+  } else if (lang === 'ru') {
+    message = 'Пожалуйста заполните анкету.';
+    lettersonly = 'Пожалуйста, введите только буквы.';
+    phone = 'Пожалуйста, введите 10-значный номер телефона.';
+    email = 'Пожалуйста, введите действительный адрес электронной почты.';
+  } else if (lang === 'de') {
+    message = 'Bitte füllen Sie das Feld aus.';
+    lettersonly = 'Bitte geben Sie nur Buchstaben ein.';
+    phone = 'Bitte geben Sie eine 10-stellige Telefonnummer ein.';
+    email = 'Bitte geben Sie eine gültige E-Mail-Adresse ein.';
+  }
+
+  $.validator.addMethod('lettersonly', function(value, element) {
+    return this.optional(element) || /^[a-zA-ZçÇğĞıİöÖşŞüÜ\s]*$/.test(value);
+  });
+
+  $('#form-contact').validate({
+    rules: {
+      FirstName: {
+        required: true,
+        lettersonly: true,
       },
-      setValue: function(s) {
-        if ($(this).attr("readonly")) {
-          $(this).val(s);
-          $(this)
-            .siblings()
-            .val(s);
-        }
-      }
-    };
-
-    $(this).dateRangePicker(config);
+      LastName: {
+        required: true,
+        lettersonly: true,
+      },
+      Email: {
+        required: true,
+        email: true,
+      },
+      Phone: {
+        required: true,
+        minlength: 14,
+      },
+      PhoneCode: {
+        required: true,
+      },
+      Message: {
+        required: true,
+      },
+      Aggreement: {
+        required: true,
+      },
+    },
+    messages: {
+      FirstName: {
+        required: message,
+        lettersonly: lettersonly,
+      },
+      LastName: {
+        required: message,
+        lettersonly: lettersonly,
+      },
+      Email: {
+        required: message,
+        email: email,
+      },
+      Phone: {
+        required: message,
+        minlength: phone,
+      },
+      PhoneCode: {
+        required: message,
+      },
+      Message: {
+        required: message,
+      },
+      Aggreement: {
+        required: message,
+      },
+    },
+    submitHandler: function(form) {
+      form.submit();
+    },
   });
-}
 
-function checkPlaceHolder() {
-  $(".fake-placeholder").each(function() {
-    $("input.form-control,textarea.form-control").each(function() {
-      if ($(this).val() != "") {
-        $(this)
-          .closest(".fake-placeholder")
-          .addClass("focused");
-      } else {
-        $(this)
-          .closest(".fake-placeholder")
-          .removeClass("focused");
-      }
-    });
+  $('#form-sales').validate({
+    rules: {
+      Type: {
+        required: true,
+      },
+      FirstName: {
+        required: true,
+        lettersonly: true,
+      },
+      LastName: {
+        required: true,
+        lettersonly: true,
+      },
+      Email: {
+        required: true,
+        email: true,
+      },
+      Phone: {
+        required: true,
+        minlength: 14,
+      },
+      PhoneCode: {
+        required: true,
+      },
+      Message: {
+        required: true,
+      },
+      Aggreement: {
+        required: true,
+      },
+    },
+    messages: {
+      Type: {
+        required: message,
+      },
+      FirstName: {
+        required: message,
+        lettersonly: lettersonly,
+      },
+      LastName: {
+        required: message,
+        lettersonly: lettersonly,
+      },
+      Email: {
+        required: message,
+        email: email,
+      },
+      Phone: {
+        required: message,
+        minlength: phone,
+      },
+      PhoneCode: {
+        required: message,
+      },
+      Message: {
+        required: message,
+      },
+      Aggreement: {
+        required: message,
+      },
+    },
+    submitHandler: function(form) {
+      form.submit();
+    },
   });
-}
 
-function checkModernInput() {
-  $(".fake-placeholder").each(function() {
-    $("input.form-control,textarea.form-control").each(function() {
-      if ($(this).val() != "") {
-        $(this)
-          .closest(".fake-placeholder")
-          .addClass("focused");
-      } else {
-        $(this)
-          .closest(".fake-placeholder")
-          .removeClass("focused");
-      }
-    });
+  $('#form-special-offer').validate({
+    rules: {
+      FirstName: {
+        required: true,
+        lettersonly: true,
+      },
+      LastName: {
+        required: true,
+        lettersonly: true,
+      },
+      Email: {
+        required: true,
+        email: true,
+      },
+      Phone: {
+        required: true,
+        minlength: 14,
+      },
+      PhoneCode: {
+        required: true,
+      },
+      Message: {
+        required: true,
+      },
+      Aggreement: {
+        required: true,
+      },
+    },
+    messages: {
+      FirstName: {
+        required: message,
+        lettersonly: lettersonly,
+      },
+      LastName: {
+        required: message,
+        lettersonly: lettersonly,
+      },
+      Email: {
+        required: message,
+        email: email,
+      },
+      Phone: {
+        required: message,
+        minlength: phone,
+      },
+      PhoneCode: {
+        required: message,
+      },
+      Message: {
+        required: message,
+      },
+      Aggreement: {
+        required: message,
+      },
+    },
+    submitHandler: function(form) {
+      form.submit();
+    },
   });
 
-  $(".fake-placeholder").each(function() {
-    var $this = $(this),
-      $inpElem = $this.find("input,textarea");
-
-    $inpElem.on("focus", function() {
-      $this.addClass("focused");
-    });
-
-    $inpElem.on("blur", function() {
-      // console.log('active');
-      var isValid = $(this).val() == "" ? true : false;
-      isValid === true
-        ? $this.removeClass("focused")
-        : $this.addClass("focused");
-    });
+  $('#form-human-resources').validate({
+    rules: {
+      FirstName: {
+        required: true,
+        lettersonly: true,
+      },
+      LastName: {
+        required: true,
+        lettersonly: true,
+      },
+      Email: {
+        required: true,
+        email: true,
+      },
+      Phone: {
+        required: true,
+        minlength: 14,
+      },
+      PhoneCode: {
+        required: true,
+      },
+      Message: {
+        required: true,
+      },
+      File: {
+        required: true,
+      },
+      Aggreement: {
+        required: true,
+      },
+    },
+    messages: {
+      FirstName: {
+        required: message,
+        lettersonly: lettersonly,
+      },
+      LastName: {
+        required: message,
+        lettersonly: lettersonly,
+      },
+      Email: {
+        required: message,
+        email: email,
+      },
+      Phone: {
+        required: message,
+        minlength: phone,
+      },
+      PhoneCode: {
+        required: message,
+      },
+      Message: {
+        required: message,
+      },
+      File: {
+        required: message,
+      },
+      Aggreement: {
+        required: message,
+      },
+    },
+    submitHandler: function(form) {
+      form.submit();
+    },
   });
-}
 
-$(".hotel-select__menu").each(function() {
-  var hotelName = "";
-  var $hotelSelectInput = $(".hotel-select-input");
+  $('#form-member-clup-login').validate();
 
-  var sessionHotel = getHotelName();
+  $('#form-member-clup-register').validate();
 
-  if (sessionHotel != "") {
-    switch (sessionHotel) {
-      case "antedon":
-        $(".hotel-select__checkbox[value=1]").prop("checked", true);
-        break;
-      case "alinda":
-        $(".hotel-select__checkbox[value=2]").prop("checked", true);
-        break;
-      case "claros":
-        $(".hotel-select__checkbox[value=3]").prop("checked", true);
-        break;
-      case "residence":
-        $(".hotel-select__checkbox[value=5]").prop("checked", true);
-        break;
-    }
+  $('#form-member-clup-contact').validate();
+
+  /* Reservation */
+
+  function getCookie(name) {
+    var value = '; ' + document.cookie;
+    var parts = value.split('; ' + name + '=');
+    if (parts.length === 2)
+      return parts
+        .pop()
+        .split(';')
+        .shift();
+    return '';
   }
 
-  $(this)
-    .find(".hotel-select__menu-item")
-    .each(function() {
-      var $menuItemInput = $(this).find("input[type=radio]");
+  Date.prototype.addDays = function(days) {
+    var dat = new Date(this.valueOf());
+    dat.setDate(dat.getDate() + days);
+    return dat;
+  };
 
-      if ($menuItemInput.is(":checked")) {
-        hotelName = $menuItemInput.data("hotel-name");
-
-        $hotelSelectInput.val(hotelName);
-      }
-
-      $menuItemInput.on("change", function() {
-        hotelName = $(this).data("hotel-name");
-
-        $hotelSelectInput.val(hotelName);
-      });
-    });
-});
-
-$(".search-panel__col.dates").each(function() {
-  $(this).on("click", function() {
-    var $this = $(this);
-    $(".search-panel__col.dates").removeClass("active");
-    $this.addClass("active");
-  });
-});
-
-$('[data-name="name"]').each(function() {
-  $(this)
-    .first()
-    .change(function() {
-      checkPlaceHolder();
-    });
-});
-
-$('[data-name="surname"]').each(function() {
-  $(this)
-    .first()
-    .change(function() {
-      checkPlaceHolder();
-    });
-});
-
-$("#checkAvailablity").each(function() {
-  $(this).on("click", function() {
-    var count = 0;
-
-    $(".hotel-select__menu-item").each(function() {
-      $(this)
-        .find("input[type=radio]")
-        .is(":checked") == true
-        ? count++
-        : "";
-    });
-
-    if (count == 0) {
-      $(".hotel-select-input").addClass("input-validation-error");
+  function getDateFormatted(dateI) {
+    let dd = dateI.getDate();
+    let mm = dateI.getMonth() + 1;
+    let yyyy = dateI.getFullYear();
+    if (dd < 10) {
+      dd = '0' + dd;
     }
-  });
-});
-
-$("input[type=number]").each(function() {
-  $(this).on("keypress", function(evt) {
-    var $this = $(this);
-    var dataMax = $this.data("maxlength");
-
-    if (
-      (evt.which != 8 && evt.which != 0 && evt.which < 48) ||
-      evt.which > 57
-    ) {
-      evt.preventDefault();
+    if (mm < 10) {
+      mm = '0' + mm;
     }
-
-    if (dataMax != undefined) {
-      if ($this.val().length >= dataMax) {
-        return false;
-      }
-    }
-  });
-
-  $(this).on("input", function() {
-    var $this = $(this);
-    var dataMin = $this.data("minlength");
-
-    if (dataMin != undefined) {
-      var $errorOwner = $this.closest(".input-group");
-      var errorClass = "input-validation-error";
-
-      if ($this.val().length < dataMin) {
-        $errorOwner != undefined
-          ? $errorOwner.addClass(errorClass)
-          : $this.addClass(errorClass);
-      } else {
-        $errorOwner != undefined
-          ? $errorOwner.removeClass(errorClass)
-          : $this.removeClass(errorClass);
-      }
-    }
-  });
-});
-
-$("[data-regex]").each(function() {
-  var regex = $(this).data("regex");
-  switch (regex) {
-    case "text":
-      $(this).on("keypress", function(evt) {
-        var isValid = /^[a-zA-Zа-яА-ЯğüşöçıİĞÜŞÖÇ ]+$/.test(evt.key);
-        if (!isValid) {
-          evt.preventDefault();
-        }
-      });
-      break;
+    return yyyy + '-' + mm + '-' + dd;
   }
-});
 
-$("[data-selected]").each(function() {
-  var $this = $(this);
-  var thisData = $this.data("selected");
-
-  thisData ? $this.attr("selected", "selected") : "";
-});
-
-let initSliders = () => {
-  let sliders = [];
-
-  let sliderElems = document.querySelectorAll(".rooms-container");
-
-  sliderElems.forEach(e => {
-    sliders.push(
-      new Swiper(e, {
-        slidesPerView: 1,
-        spaceBetween: 14,
-        containerModifierClass: "rooms-container--",
-        wrapperClass: "rooms-wrapper",
-        slideClass: "rooms-slide",
-        slideActiveClass: "rooms-slide--active",
-        slideNextClass: "rooms-slide--next",
-        slidePrevClass: "rooms-slide--prev",
-        navigation: {
-          nextEl: e.querySelector(".next"),
-          prevEl: e.querySelector(".prev")
-        }
-      })
-    );
+  $('[click-prevent]').click(function(e) {
+    e.preventDefault();
   });
-};
 
-window.onload = () => {
-  initSliders();
-};
+  $('#form-reservation #child').change(function() {
+    let val = parseInt($(this).val());
+    const olds = ['', 'one', 'two', 'three', 'four'];
 
-$('.reservation-details-button').on("click",(e) => {
-  var ww = $(window).width();
+    const childContaioner = $('.child-old');
+    if (val <= 0) childContaioner.addClass('uk-hidden');
+    else childContaioner.removeClass('uk-hidden');
 
-  e.preventDefault();
+    for (index in olds) {
+      let element = $(`.child-old .old-${olds[index]}`);
+      if (index <= val && index > 0) element.removeClass('uk-hidden');
+      else element.addClass('uk-hidden');
+    }
+  });
 
-  if (ww < 1280) {
-    $('.reservation-details').toggleClass('is-shown')
-  }
-})
+  $(document).on('submit', '#form-reservation', function(event) {
+    event.preventDefault();
+
+    let form = $(this);
+    let airportContent = form.find("[name='airport']").val();
+    let airportCode = airportContent ? airportContent.split('-')[0] : '';
+    let checkin = form
+      .find("[name='checkin']")
+      .val()
+      .replace(/\//g, '.');
+    let checkout = form
+      .find("[name='checkout']")
+      .val()
+      .replace(/\//g, '.');
+    let hotelId = form.find("[name='hotel']").val();
+    let room = form.find("[name='room']").val();
+    let adult = form.find("[name='adult']").val();
+    let children = form.find("[name='child']").val();
+    let childAge1 = form.find("[name='childAge1']").val();
+    let childAge2 = form.find("[name='childAge2']").val();
+    let childAge3 = form.find("[name='childAge3']").val();
+    let childAge4 = form.find("[name='childAge4']").val();
+
+    //console.log(airportContent, airportCode, checkin, checkout, hotelId, room, adult, children);
+
+    let checkInMessage = $('#checkInMessage').val();
+    let checkOutMessage = $('#checkOutMessage').val();
+
+    if (checkin === '') {
+      UIkit.modal.dialog('<p class="uk-modal-body"><span class="uk-text-warning uk-margin-small-right" uk-icon="icon: warning; ratio: 1.2;"></span>' + checkInMessage + '</p>');
+    } else if (checkout === '') {
+      UIkit.modal.dialog('<p class="uk-modal-body"><span class="uk-text-warning uk-margin-small-right" uk-icon="icon: warning; ratio: 1.2;"></span>' + checkOutMessage + '</p>');
+    } else {
+      if (typeof window.current_language === 'undefined' || window.current_language === '') {
+        window.current_language = 'tr';
+      }
+
+      var paramsArr = ['https://gloria.hweb.com/?'];
+      paramsArr.push('fromCityAirport='.concat(encodeURIComponent(airportCode)));
+      paramsArr.push('fromAirport='.concat(''));
+      paramsArr.push('fromDate='.concat(checkin));
+      paramsArr.push('toDate='.concat(checkout));
+      paramsArr.push('rnum='.concat(room));
+      paramsArr.push('cnum1='.concat(children));
+      paramsArr.push('chdAge11='.concat(childAge1));
+      paramsArr.push('chdAge12='.concat(childAge2));
+      paramsArr.push('chdAge13='.concat(childAge3));
+      paramsArr.push('chdAge14='.concat(childAge4));
+      paramsArr.push('anum1='.concat(adult));
+      paramsArr.push('hotelId='.concat(hotelId));
+      paramsArr.push('noNeedFlight='.concat(0));
+      paramsArr.push('Lang='.concat(window.current_language));
+      paramsArr.push('noreq='.concat(true));
+      paramsArr.push('hwebref='.concat('bwidget'));
+      paramsArr.push('_ga='.concat(getCookie('_ga')));
+      paramsArr.push('_gid='.concat(getCookie('_gid')));
+
+      var url = paramsArr.join('&');
+      //console.log(url);
+      window.open(url, '_blank');
+    }
+
+    return false;
+  });
+
+  /* Airport Auto Complete */
+
+  var currentLanguage = $('html').attr('lang');
+
+  $('#airport').each(function(key, el) {
+    $(el).autocomplete({
+      delay: 100,
+      minLength: 3,
+      source: function(request, response) {
+        $.ajax({
+          url: 'https://alibey.hweb.com/commons/airports/' + currentLanguage + '/' + request.term,
+          data: {},
+          success: function(data) {
+            response(
+              data.map(function(item) {
+                return item.airportCode + ' ' + item.airportName + ' ' + item.cityName + ' ' + item.countryCode;
+              }),
+            );
+          },
+        });
+      },
+    });
+  });
+
+  /* View All Button */
+
+  var viewAllButton = $('.view-all-button');
+
+  viewAllButton.click(function() {
+    $(this).toggleClass('uk-active');
+
+    if (viewAllButton.hasClass('uk-active')) {
+      if (lang === 'en') {
+        viewAllButton.text('Hide');
+      } else if (lang === 'tr') {
+        viewAllButton.text('Gizle');
+      } else if (lang === 'de') {
+        viewAllButton.text('Verstecken');
+      } else if (lang === 'ru') {
+        viewAllButton.text('скрывать');
+      }
+    } else {
+      if (lang === 'en') {
+        viewAllButton.text('View All');
+      } else if (lang === 'tr') {
+        viewAllButton.text('Tümünü Göster');
+      } else if (lang === 'de') {
+        viewAllButton.text('Alle Anzeigen');
+      } else if (lang === 'ru') {
+        viewAllButton.text('ПОСМОТРЕТЬ ВСЕ');
+      }
+    }
+  });
+});

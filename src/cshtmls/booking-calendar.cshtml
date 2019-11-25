@@ -1,0 +1,335 @@
+@model Klonbits.CMSBits.Presentation.Web.ViewModels.Book.BookCalendarViewModel
+@using System.Globalization
+@using System.Threading
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer T
+@{
+    var jsFormat = "";
+    var cSharpFormat = "";
+    var birthDateMax = new DateTime(DateTime.Now.Year + 1, 12, DateTime.DaysInMonth(DateTime.Now.Year + 1, 12));
+    var maxDate = $"{birthDateMax.Month}.{birthDateMax.Day}.{birthDateMax.Year}";
+
+    var old = DateTime.Now.AddYears(-18);
+    var birthDateMin = new DateTime(old.Year, old.Month, old.Day);
+    var minDate = $"{birthDateMin.Month}.{birthDateMin.Day}.{birthDateMin.Year}";
+
+    if (!Thread.CurrentThread.CurrentCulture.Name.Contains("en"))
+    {
+        jsFormat = "DD.MM.YYYY";
+        cSharpFormat = "dd.MM.yyyy";
+    }
+    else
+    {
+        jsFormat = "MM.D.YYYY";
+        cSharpFormat = "MM.d.yyyy";
+    }
+}
+
+<div id="offcanvas-flip" class="uk-offcanvas" uk-offcanvas="flip: true; overlay: true">
+    <div class="uk-offcanvas-bar">
+        <button class="uk-offcanvas-close uk-hidden@s" type="button" uk-icon="icon: icn-close;"></button>
+
+        <h3 class="uk-h5 uk-text-normal uk-margin-large uk-margin-remove-top">
+            Rezervasyon
+        </h3>
+
+        <div class="uk-flex uk-flex-column" uk-height-viewport="offset-bottom: 17">
+            <form id="searchForm" method="post" action="@Url.RouteUrl("public-booking",new {action="Search"})">
+                <input type="hidden" id="checkInMessage" value="L&#252;tfen Giriş Tarihi Se&#231;iniz" />
+                <input type="hidden" id="checkOutMessage" value="L&#252;tfen &#199;ıkış Tarihi Se&#231;iniz" />
+                <div class="uk-margin">
+                    <div class="uk-grid uk-grid-small" uk-grid>
+                        <div class="uk-width-1-1 uk-hidden item-airplane">
+                            <input type="text" id="airport" name="airport" class="uk-select" placeholder="Havaalanı" />
+                        </div>
+                        <div class="uk-width-1-1 uk-margin-top">
+                            <select class="uk-select" id="hotel" name="hotel">
+                                <option value="">Otel Seçiniz.</option>
+                                <option asp-for="HotelId" value="1">GLORIA GOLF RESORT</option>
+                                <option asp-for="HotelId" value="2">GLORIA SERENITY RESORT</option>
+                                <option asp-for="HotelId" value="3">GLORIA VERDE RESORT</option>
+                            </select>
+                        </div>
+                        <div class="uk-width-1-2 uk-margin-top">
+                            <!-- <input type="text" id="data-checkin1" name="checkin" class="uk-select datepicker datepicker-disabled"
+                              placeholder="Giriş Tarihi" /> Layout Checkin Old -->
+
+                            <input id="data-checkin1" class="uk-select datepicker datepicker-disabled" value="@(Model.CheckIn.Date.ToString(cSharpFormat))"
+                                   placeholder="@T["visitDates"]" readonly>
+                            <input id="checkindate" type="hidden" asp-for="CheckIn.Date" />
+
+                        </div>
+                        <div class="uk-width-1-2 uk-margin-top">
+                            <!-- <input type="text" id="data-checkout1" name="checkout" class="uk-select datepicker datepicker-disabled"
+                              placeholder="&#199;ıkış Tarihi" /> Layout Checkout Old -->
+
+                            <input id="data-checkout1" class="uk-select datepicker datepicker-disabled" value="@(Model.CheckOut.Date.ToString(cSharpFormat))"
+                                   placeholder="@T["visitDates"]" readonly>
+                            <input id="checkoutdate" type="hidden" asp-for="CheckOut.Date" />
+
+                        </div>
+                        <div class="uk-width-1-1 uk-margin-top">
+                            <select class="uk-select" id="adult" name="adult">
+                                <option value="1">1 Yetişkin</option>
+                                <option value="2">2 Yetişkin</option>
+                                <option value="3">3 Yetişkin</option>
+                                <option value="4">4 Yetişkin</option>
+                                <option value="5">5 Yetişkin</option>
+                                <option value="6">6 Yetişkin</option>
+                                <option value="7">7 Yetişkin</option>
+                                <option value="8">8 Yetişkin</option>
+                                <option value="9">9 Yetişkin</option>
+                                <option value="10">10 Yetişkin</option>
+                                <option value="11">11 Yetişkin</option>
+                                <option value="12">12 Yetişkin</option>
+                            </select>
+                        </div>
+                        <div class="uk-width-1-1 uk-margin-top">
+                            <select class="uk-select" id="child" name="child">
+                                <option value="0">0 Çocuk</option>
+                                <option value="1">1 Çocuk</option>
+                                <option value="2">2 Çocuk</option>
+                                <option value="3">3 Çocuk</option>
+                                <option value="4">4 Çocuk</option>
+                            </select>
+                        </div>
+                        <div class="uk-width-1-1 uk-margin-top uk-hidden child-old">
+                            <div class="uk-grid uk-grid-small uk-child-width-1-4" uk-grid>
+                                <div class="old-one uk-hidden">
+                                    <input type="text" class="uk-input" name="childAge1" placeholder="Yaş" />
+                                </div>
+                                <div class="old-two uk-hidden">
+                                    <input type="text" class="uk-input" name="childAge2" placeholder="Yaş" />
+                                </div>
+                                <div class="old-three uk-hidden">
+                                    <input type="text" class="uk-input" name="childAge3" placeholder="Yaş" />
+                                </div>
+                                <div class="old-four uk-hidden">
+                                    <input type="text" class="uk-input" name="childAge4" placeholder="Yaş" />
+                                </div>
+                            </div>
+                        </div>
+                        <!--
+                        <div class="uk-width-1-1 uk-margin-top">
+                          <select class="uk-select" id="room" name="room">
+                            <option value="1">1 Oda</option>
+                            <option value="2">2 Oda</option>
+                            <option value="3">3 Oda</option>
+                            <option value="4">4 Oda</option>
+                          </select>
+                        </div>
+                        <div class="uk-width-1-1 uk-margin-top">
+                          <input type="text" class="uk-input" id="promotionalCode" name="promotionalCode"
+                            placeholder="Promosyon Kodu" />
+                        </div>
+                        -->
+                    </div>
+                </div>
+
+                <div class="uk-margin-auto-top uk-text-center uk-text-emphasis">
+                    <button id="checkAvailablity" type="submit"
+                            class="uk-button uk-button-secondary uk-button-large uk-active uk-width-1-1 uk-border-rounded-remove uk-margin-xsmall">
+                        Ara
+                    </button>
+                    <a href="#" uk-toggle="target: #toggle-call; animation: uk-animation-slide-left"
+                       class="uk-button uk-button-default uk-button-large uk-width-1-1 uk-border-rounded-remove uk-margin-medium-bottom">
+                        Sizi Arayalım
+                    </a>
+                    <a href="tel:08504770447" class="uk-link-reset uk-text-small">
+                        Bize Ulaşın 0 850 477 0 447
+                    </a>
+                </div>
+            </form>
+
+            <div id="toggle-call" class="uk-position-bottom uk-section uk-section-small uk-section-secondary" hidden>
+                <a href="#" class="uk-position-top-right uk-position-small" uk-icon="icon: close; ratio: 1;"
+                   uk-toggle="target: #toggle-call; animation: uk-animation-slide-left"></a>
+                <div class="uk-padding-small uk-padding-remove-vertical">
+                    <h3 class="uk-h5 uk-text-normal uk-margin-remove">
+                        Sizi Arayalım
+                    </h3>
+                    <p class="uk-margin-remove uk-text-muted">
+                        Lütfen cep numaranızı giriniz.
+                    </p>
+
+                    <form action="/" class="uk-margin-medium-top " enctype="multipart/form-data" id="form-call-you"
+                          method="post">
+                        <input class="uk-input uk-hidden" name="GoogleCaptchaToken" type="text" id="token" />
+                        <input class="uk-input uk-hidden" name="SentSection" type="text" value="Sizi Arayalım" />
+                        <input class="uk-input uk-hidden" name="SuccessMessage" type="text" value="" />
+                        <input class="uk-input uk-hidden" name="UnSuccessMessage" type="text" value="" />
+                        <label></label>
+                        <div class="uk-margin">
+                            <input class="uk-input" name="FirstName" type="text" placeholder="İsim" />
+                        </div>
+                        <input class="uk-hidden" name="ReceiverMailAddresses" type="text" />
+                        <div class="uk-margin">
+                            <input class="uk-input" name="LastName" type="text" placeholder="Soyisim" />
+                        </div>
+                        <div class="uk-grid uk-grid-small uk-margin">
+                            <div class="uk-width-xsmall">
+                                <input type="tel" name="PhoneCode" class="uk-input mask-phone-code" placeholder="" />
+                            </div>
+                            <div class="uk-width-expand">
+                                <input class="uk-input mask-phone" name="Phone" type="tel" placeholder="Telefon Numarası" />
+                            </div>
+                        </div>
+                        <button type="submit"
+                                class="uk-button uk-button-primary uk-button-large uk-border-rounded-remove uk-active uk-width-1-1"
+                                uk-toggle="target: #toggle-success, #toggle-call; animation: uk-animation-slide-left">
+                            G&#246;nder
+                        </button>
+                        <input name="ufprt" type="hidden"
+                               value="54CC690DF2AABAEDE6A49DF357434931021A1E58FB6992307ACC6A4BCAAFB128C2E1681CA5D0F2DEAD2A888DB8D9F218A6B6C6E55483F532F7CEC7FBCBD666F3C999B1D2FDF6C882499EC1F13322A6464BCDDA19F2D7D043D2C209745C628E1017C42899DC6082D23C8F94976B55A73B55BD060EA9A307BB50F4D0DB7F664A7E018B242343AF3D9F3F8BEBBE831D5BE70E09BAE1AE0B84122E2E3EC64C689F6D" />
+                    </form>
+
+                    <div class="uk-text-center">
+                        <a href="tel:Our.Umbraco.Vorto.Models.VortoValue`1[System.String]" class="uk-link-reset uk-text-small">
+                            Bize Ulaşın 0 850 477 0 447
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="toggle-success"
+                 class="uk-position-bottom uk-section uk-section-small uk-section-secondary uk-flex uk-flex-middle" hidden
+                 style="min-height: 388px;">
+                <a href="#" class="uk-position-top-right uk-position-small" uk-icon="icon: close; ratio: 1;"
+                   uk-toggle="target: #toggle-success; animation: uk-animation-slide-left"></a>
+                <div class="uk-padding-small uk-padding-remove-vertical uk-text-center">
+                    <span uk-icon="icon: icn-success;"></span>
+                    <h3 class="uk-h5 uk-text-normal uk-margin-medium-top uk-margin-xsmall-bottom">
+                        BAŞARIYLA GÖNDERİLDİ
+                    </h3>
+                    <p class="uk-margin-remove uk-text-muted">
+                        Bilgileriniz gönderildi. Sizinle en kısa
+                        sürede iletişime geçeceğiz.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/js/vendor/jquery.min.js"></script>
+<script>
+
+    var days = @Html.Raw(Json.Serialize(DateTimeFormatInfo.CurrentInfo.AbbreviatedDayNames.ToList()));
+    var months = @Html.Raw(Json.Serialize(DateTimeFormatInfo.CurrentInfo.AbbreviatedMonthNames.ToList()));
+
+    var fullDays = @Html.Raw(Json.Serialize(DateTimeFormatInfo.CurrentInfo.DayNames));
+    var fullMonths = @Html.Raw(Json.Serialize(DateTimeFormatInfo.CurrentInfo.MonthNames));
+
+    var ww = $(window).width();
+    if (ww < 767) {
+        $('.search-panel-expand').closest('.row').addClass('bg-lightgray');
+    }
+
+    $('[name="hotelSelect"]').on('change',function(){
+        var $this = $(this);
+        alert($this);
+        var $inpHotelSelect = $(this).closest('.hotel-select-section').find('.hotel-select-input');
+        var selectedHotel = $this.closest('.hotel-select__menu-item').find('.hotel-select__title').text().trim();
+
+        console.log($inpHotelSelect,selectedHotel);
+
+        $inpHotelSelect.val(selectedHotel);
+    });
+
+    $('#childrenCount').each(function() {
+        $(this).on('click',
+            function () {
+                var elemVal = $(this).data("selected-child");
+                for (var i = 1; i <= elemVal; i++) {
+                    $('[data-hidden-child] .row').find('[data-child-col]:nth-child(' + i + ')').addClass(
+                        'active');
+                }
+                if (!$('[data-hidden-child]').hasClass('active')) {
+                    $('[data-hidden-child]').addClass('active');
+                } else {
+                    $('[data-hidden-child]').removeClass('active');
+                }
+            });
+    });
+
+    var isCollapsedCalendar = true;
+    $('.panel-content-trigger').on('click', function () {
+        const searchExpandPanel = $(this).closest('.search-panel').siblings();
+        searchExpandPanel.slideToggle();
+
+        isCollapsedCalendar = !isCollapsedCalendar;
+        if (isCollapsedCalendar) {
+            $(this).html('<i class="fal fa-calendar-alt mr-2"></i><span class="d-none--sm">@T["hideCalendar"]</span>');
+        } else {
+            $(this).html('<i class="fal fa-calendar-alt mr-2"></i><span class="d-none--sm">@T["showCalendar"]</span>');
+        }
+    });
+
+    var input = document.getElementById('inpVisitDates');
+    
+    $('.minus').click(function() {
+        var elem = $(this).closest('.input-group-prepend').siblings('input'),
+            dataMinus = parseInt($(this).data('minus')),
+            elemVal = parseInt(elem.val()),
+            maxValue = (parseInt(elem.data('max-value')) - 1);
+
+        if (elem.val() >= 1) {
+            elem.val(elemVal + dataMinus);
+            if ($(this).closest('[data-child-section]').data('child-section') != undefined) {
+                elem.data('selected-child', elem.val());
+
+                $('[data-hidden-child] .row').find('[data-child-col]').removeClass('active');
+
+                for (var i = 1; i <= elem.val(); i++) {
+                    $('[data-hidden-child] .row').find('[data-child-col]:nth-child(' + i + ')').addClass(
+                        'active');
+                }
+            }
+        }
+
+        if ($(this).closest('[data-child-section]').data('child-section') != undefined) {
+            if (parseInt(elem.val()) == 0) {
+                $('[data-hidden-child]').removeClass('active');
+            }
+        }
+    });
+
+    $('.plus').click(function() {
+        var elem = $(this).closest('.input-group-prepend').siblings('input'),
+            dataPlus = parseInt($(this).data('plus')),
+            elemVal = parseInt(elem.val()),
+            maxValue = (parseInt(elem.data('max-value')) - 1);
+
+        if (elemVal >= 0 && elemVal <= maxValue) {
+            elem.val(elemVal + dataPlus);
+            if ($(this).closest('[data-child-section]').data('child-section') != undefined) {
+                elem.data('selected-child', elem.val());
+
+                $('[data-hidden-child]').addClass('active');
+                for (var i = 1; i <= elemVal + 1; i++) {
+                    $('[data-hidden-child] .row').find('[data-child-col]:nth-child(' + i + ')').addClass(
+                        'active');
+                }
+            }
+        }
+    });
+
+    $('#checkAvailablity').click(function () {
+        var errors = [];
+        $('[data-calendar="datepicker"]').each(function (ix, el) {
+            var isShowing = $(this).closest('[data-child-col]').hasClass('active');
+            if (isShowing) {
+                var value = $(this).siblings('input[type="hidden"]').val();
+                if ((value == '1.01.0001 00:00:00') || (value == '')) {
+                    $(this).addClass('input-validation-error');
+                    errors.push($(this));
+                } else {
+                    $(this).removeClass('input-validation-error');
+                }
+            }
+        });
+        if (errors.length == 0) {
+            $('#searchForm').submit();
+        }
+    });
+</script>

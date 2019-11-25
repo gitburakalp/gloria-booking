@@ -1,0 +1,24 @@
+label {
+  margin-bottom: 0;
+}
+
+.search__title {
+  font-family: $ff-sans-serif;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: $color-black;
+
+  + * {
+    margin-top: 2.25rem;
+  }
+
+  &--regular {
+    @extend .search__title;
+    font-weight: 400;
+
+    &-small {
+      @extend .search__title--regular;
+      font-size: 1.4rem;
+    }
+  }
+}

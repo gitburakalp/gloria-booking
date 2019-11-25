@@ -1,0 +1,257 @@
+@using System.Text
+@using Klonbits.CMSBits.Common.HardCode.Enums
+@using Microsoft.AspNetCore.Html
+@model Klonbits.CMSBits.Presentation.Web.ViewModels.Book.TransferViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer T
+@{
+    ViewData["Step"] = "Transfer";
+    ViewData["Title"] = T["transfers"];
+}
+<form id="transferForm" method="post" class="active" action="@Url.RouteUrl("public-booking",new {action="Transfer"})">
+    <div class="transfers" data-show-content="transfer-details">
+        <div class="search-main-headings">
+            <h3 class="search__title text-uppercase">
+                @T["selectTransfer"]
+            </h3>
+        </div>
+        <div class="search-boxes">
+            <div class="unique-checkbox">
+                <input type="checkbox" id="noTransfer" asp-for="NeedTransfer" onchange="updateTransfer()">
+                <label for="noTransfer">
+                    @T["iNeedTransfer"]
+                </label>
+            </div>
+            <div class="row mt-4">
+                <div class="col-12">
+                    <ul class="transfer-navigation transfers__menu">
+                        <li class="transfers__menu-item" style="display:none">
+                            <div class="unique-checkbox">
+                                @RenderTransferDirection(TransferDirection.RoundTrip)
+                                <label for="tripTransfer">
+                                    @T["roundTrip"]
+                                </label>
+                            </div>
+                        </li>
+                        <li class="transfers__menu-item" style="display:none">
+                            <div class="unique-checkbox">
+                                @RenderTransferDirection(TransferDirection.OnlyArrival)
+                                <label for="onlyArrival">
+                                    @T["onlyArrival"]
+                                </label>
+                            </div>
+                        </li>
+                        <li class="transfers__menu-item" style="display:none">
+                            <div class="unique-checkbox">
+                                @RenderTransferDirection(TransferDirection.OnlyDeparture)
+                                <label for="onlyDeparture">
+                                    @T["onlyDeparture"]
+                                </label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="arrival-transfer d-none" data-show="arrival">
+            <div class="search-main-headings">
+                <h3 class="search__title">
+                    @T["arrivalTransfer"]
+                </h1>
+            </div>
+            <div class="search-boxes">
+                <ul class="transfers-list">
+                    @{
+                        foreach (var item in ViewBag.Transfers.Result) {
+                            <li class="transfers-list-item">
+                                 <div class="fake-checkbox">
+                                    <input asp-for="Arrival.Flight.Airport.Id" name="transfer" type="radio" value="@item.Id.ToString()" onchange="updateTransfer()" />
+                                    <label asp-for="Arrival.Flight.Airport.Id">
+                                        <img class="transfers-img" src="http://via.placeholder.com/152x92" />
+                                        <span class="transfers-name">@item.Name.ToString()</span>
+                                        <span class="transfers-cost">@item.OneWayPrice.Amount.ToString("0,##") @item.OneWayPrice.Currency</span>
+                                    </label>
+                                 </div>
+                            </li>
+                        }
+                    }
+                </ul>
+                <h5 class="search__title--regular">
+                    Lütfen uçuş bilgilerini giriniz.
+                </h5>
+                <div class="row">
+                    <div class="col-12 col-md">
+                    <div class="fake-placeholder">
+                        <input type="text" class="form-control" />
+                        <label>Uçuş Saati Giriniz</label>
+                    </div>
+                    </div>
+                    <div class="col-12 col-md">
+                    <div class="fake-placeholder">
+                        <input type="text" class="form-control" />
+                        <label>Uçuş Numarası Giriniz</label>
+                    </div>
+                    </div>
+                    <div class="col-12 col-md">
+                    <div class="fake-placeholder">
+                        <input type="text" class="form-control" />
+                        <label>Notunuz</label>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="departure-transfer d-none" data-show="departure">
+        </div>
+
+        <section class="transfer-section">
+            <div class="row">
+                <div class="col-12">
+                    
+                </div>
+            </div>
+            <section>
+                
+                <div class="row" data-show="departure" style="display: none;">
+                    <div class="col-12">
+                        <h3 class="search__title--lined">
+                            @T["departureTransfer"]
+                        </h3>
+                    </div>
+                    <div class="col col-md-4 pr-md-0">
+                        <select class="form-control selectable"
+                                asp-for="Departure.Flight.Airport.Id"
+                                asp-items="@(new SelectList(ViewBag.Transfers.Result, "Id", "Name"))"
+                                onchange="updateTransfer()"></select>
+                    </div>
+                    <div class="col-12 col-md pr-md-0">
+                        <div class="fake-placeholder">
+                            <input type="number" class="form-control" asp-for="Departure.PassengersCount" />
+                            <label class="fake-placeholder__item">@T["guestCount"] </label>
+                            <span class="field-validation-error required">@T["requiredText"]</span>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md pr-md-0">
+                        <div class="fake-placeholder">
+                            <input type="text" class="form-control" data-name="flightNumber" asp-for="Departure.Flight.Number" />
+                            <label class="fake-placeholder__item">@T["flightNumber"] </label>
+                            <span class="field-validation-error required">@T["requiredText"]</span>
+                        </div>
+                    </div>
+                    <!-- <div class="col-12 col-md pr-md-0">
+                        <div class="fake-placeholder">
+                            <input type="time" class="form-control" asp-for="Departure.Flight.Time" />
+                            <label class="fake-placeholder__item">@T["flightTime"] </label>
+                            <span class="required">@T["requiredText"]</span>
+                        </div>
+                    </div> -->
+                    <div class="col-12 col-md-3">
+                        <div class="fake-placeholder">
+                            <input type="text" class="form-control" asp-for="Departure.Note" />
+                            <label class="fake-placeholder__item">@T["transferNote"] </label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </div>
+</form>
+<script src="/js/vendor/jquery.min.js"></script>
+<script src="/js/search.js"></script>
+<script>
+    checkModernInput();
+
+    function updateTransfer() {
+        var url = '@Url.RouteUrl("public-booking", new { action = "ChangeTransfer" })';
+        $('#transferForm').attr('action', url);
+
+        $('[data-name="flightNumber"]').removeAttr('required');
+        $('[data-name="flightNumber"]').removeAttr('data-val');
+        $('[data-name="flightNumber"]').removeAttr('data-val-required');
+
+
+        $('#transferForm').submit();
+    }
+
+    $(function () {
+        $('#btnContinue').click(function (e) {
+            e.preventDefault();
+
+            $('[data-name="flightNumber"]').attr('data-val', 'true');
+            $('[data-name="flightNumber"]').attr('required', 'required');
+            $('[data-name="flightNumber"]').attr('data-val-required', 'The Number field is required.');
+
+            $('#transferForm').submit();
+        });
+    });
+
+    if ($('#noTransfer').is(':checked')) {
+        $('.transfers__menu-item').fadeIn();
+
+        if ($('#tripTransfer').is(':checked')) {
+            $('[data-show="departure"],[data-show="arrival"]').removeClass("d-none");
+            $('[data-show="departure"],[data-show="arrival"]').show();
+        }
+        if ($('#onlyArrival').is(':checked')) {
+            $('[data-show="arrival"]').show();
+        }
+        if ($('#onlyDeparture').is(':checked')) {
+            $('[data-show="departure"]').show();
+        }
+
+        //else {
+        //    $('[data-show="arrival"]').show();
+        //    $('[data-show="departure"]').hide();
+        //}
+    }
+</script>
+@functions
+{
+
+public IHtmlContent RenderTransferDirection(TransferDirection direction)
+{
+    var builder = new TagBuilder("input");
+    if (direction == Model.Direction)
+    {
+        builder.MergeAttribute("checked", "checked");
+    }
+    builder.MergeAttribute("type", "radio");
+    builder.MergeAttribute("value", ((int)direction).ToString());
+    builder.MergeAttribute("name", "Direction");
+    builder.MergeAttribute("class", "transferButton");
+    builder.MergeAttribute(" onchange", "updateTransfer()");
+    if (direction == TransferDirection.RoundTrip)
+    {
+        builder.MergeAttribute("data-show-transfer", "roundTrip");
+    }
+
+    if (direction == TransferDirection.OnlyDeparture)
+    {
+        builder.MergeAttribute("data-show-transfer", "departure");
+    }
+
+    if (direction == TransferDirection.OnlyArrival)
+    {
+        builder.MergeAttribute("data-show-transfer", "arrival");
+    }
+
+    var id = "";
+    switch (direction)
+    {
+        case TransferDirection.OnlyArrival:
+            id = "onlyArrival";
+            break;
+        case TransferDirection.OnlyDeparture:
+            id = "onlyDeparture";
+            break;
+        case TransferDirection.RoundTrip:
+            id = "tripTransfer";
+            break;
+    }
+    builder.MergeAttribute("id", id);
+
+    return builder.RenderSelfClosingTag();
+}
+}

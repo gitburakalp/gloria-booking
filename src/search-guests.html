@@ -246,264 +246,276 @@
                     </a>
                   </li>
                 </ul>
-                <div class="transfers">
-                  <div class="search-main-headings">
-                    <h4 class="search__title">
-                      TRANSFER SEÇİNİZ
-                    </h4>
-                  </div>
-                  <div class="search-boxes">
-                    <div class="unique-checkbox">
-                      <input type="checkbox" id="noTransfer" asp-for="NeedTransfer" onchange="updateTransfer()" />
-                      <label for="noTransfer">
-                        @T["iNeedTransfer"]
-                      </label>
+                <div class="guest-details" data-show-content="guest-details">
+                    <div class="search-main-headings">
+                        <h4 class="search__title text-uppercase">
+                            @T["guestInformations"]
+                        </h4>
                     </div>
-                  </div>
-                  <div class="search-main-headings">
-                    <h4 class="search__title">
-                      GİDİŞ TRANSFERİ
-                    </h4>
-                  </div>
-                  <div class="search-boxes">
-                    <ul class="transfers-list">
-                      <li class="transfers-list-item">
-                        <div class="fake-checkbox">
-                          <input id="chkEko1" name="transfers" type="radio" />
-                          <label for="chkEko1">
-                            <img class="transfers-img" src="http://via.placeholder.com/152x92" />
-                            <span class="transfers-name">Ekonomik Transfer</span>
-                            <span class="transfers-cost">100 TL</span>
-                          </label>
+                    <div class="search-boxes">
+                    @for (int i = 0; i < Model.GuestsModel.Adults.Count; i++)
+                    {
+                        var calenadrId = "";
+                        var selected = "asd=asd";
+            
+                        @if (i == 0)
+                        {
+                            mainMaxDate = "12.31.2000";
+                            calenadrId = "mainGuestCalendar";
+                            <div class="row">
+                                <div class="col-12">
+                                    <h4 class="search__title">
+                                        1. @T["guestInformations"]
+                                    </h4>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="row">
+                                <div class="col-12">
+                                    <h4 class="search__title mt-md-4">
+                                        @(i + 1). @T["guestInformations"]
+                                    </h4>
+                                </div>
+                            </div>
+                        }
+            
+                        <div class="row">
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <select class="form-control" placeholder="Mr. / Mrs." asp-for="GuestsModel.Adults[i].Gender">
+                                    <option value="1">@T["mr"]</option>
+                                    <option value="2" data-selected="@(i >= 1 ? "true":"false")">@T["ms"]</option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3 px-md-0">
+                                <div class="fake-placeholder">
+                                    <input type="text" data-name="name" data-regex="text" class="form-control" asp-for="GuestsModel.Adults[i].Name.FirstName">
+                                    <label class="fake-placeholder__item">@T["name"] </label>
+                                    <span asp-validation-for="GuestsModel.Adults[i].Name.FirstName" class="required" data-valmsg-replace="false">@T["requiredText"]</span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <div class="fake-placeholder">
+                                    <input type="text" data-name="surname" data-regex="text" class="form-control" asp-for="GuestsModel.Adults[i].Name.LastName">
+                                    <label class="fake-placeholder__item">@T["surname"] </label>
+                                    <span asp-validation-for="GuestsModel.Adults[i].Name.LastName" class="required" data-valmsg-replace="false">@T["requiredText"]</span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3 pl-md-0">
+                                <div class="fake-placeholder">
+                                    <input id="@calenadrId" type="text" class="form-control single-datepick" readonly asp-for="GuestsModel.Adults[i].Birthday">
+                                    <label class="fake-placeholder__item">@T["birthdate"] </label>
+                                    <!-- <span asp-validation-for="GuestsModel.Adults[i].Birthday" class="required" data-valmsg-replace="false">@T["requiredText"]</span> -->
+                                </div>
+                            </div>
                         </div>
-                      </li>
-                      <li class="transfers-list-item">
-                        <div class="fake-checkbox">
-                          <input id="chkEko2" name="transfers" type="radio" />
-                          <label for="chkEko2">
-                            <img class="transfers-img" src="http://via.placeholder.com/152x92" />
-                            <span class="transfers-name">Ekonomik Transfer</span>
-                            <span class="transfers-cost">100 TL</span>
-                          </label>
+                    }
+                    @for (int i = 0; i < Model.GuestsModel.Childern.Count; i++)
+                    {
+                        <div class="row">
+                            <div class="col-12">
+                                <h4 class="search__description">
+                                    @(i + 1). @T["childInformations"]
+                                </h4>
+                            </div>
                         </div>
-                      </li>
-                      <li class="transfers-list-item">
-                        <div class="fake-checkbox">
-                          <input id="chkEko3" name="transfers" type="radio" />
-                          <label for="chkEko3">
-                            <img class="transfers-img" src="http://via.placeholder.com/152x92" />
-                            <span class="transfers-name">Ekonomik Transfer</span>
-                            <span class="transfers-cost">100 TL</span>
-                          </label>
+                        <div class="row">
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <select class="form-control" asp-for="GuestsModel.Childern[i].Gender">
+                                    <option value="1">@T["mr"]</option>
+                                    <option value="2">@T["ms"]</option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3 px-md-0">
+                                <div class="fake-placeholder">
+                                    <input type="text" class="form-control" data-regex="text" asp-for="GuestsModel.Childern[i].Name.FirstName">
+                                    <label class="fake-placeholder__item">@T["name"] </label>
+                                    <span asp-validation-for="GuestsModel.Childern[i].Name.FirstName" class="required" data-valmsg-replace="false">@T["requiredText"]</span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <div class="fake-placeholder">
+                                    <input type="text" class="form-control" data-regex="text" asp-for="GuestsModel.Childern[i].Name.LastName">
+                                    <label class="fake-placeholder__item">@T["surname"] </label>
+                                    <span asp-validation-for="GuestsModel.Childern[i].Name.LastName" class="required" data-valmsg-replace="false">@T["requiredText"]</span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3 pl-md-0">
+                                <div class="fake-placeholder">
+                                    <input type="text" class="form-control child-datepickers" readonly data-calendar="datepicker" asp-for="GuestsModel.Childern[i].Birthday">
+                                    <label class="fake-placeholder__item">@T["birthdate"] </label>
+                                    <span asp-validation-for="GuestsModel.Childern[i].Birthday" class="required" data-valmsg-replace="false">@T["requiredText"]</span>
+                                </div>
+                            </div>
                         </div>
-                      </li>
-                    </ul>
-                    <h5 class="search__title--regular">
-                      Lütfen uçuş bilgilerini giriniz.
-                    </h5>
+                    }
                     <div class="row">
-                      <div class="col-12 col-md">
-                        <div class="fake-placeholder">
-                          <input type="text" class="form-control" />
-                          <label>Uçuş Saati Giriniz</label>
+                        <div class="col-12 honeyMoonTrigger">
+                            <div class="unique-checkbox">
+                                <input id="inpHoneyMoon" type="checkbox" />
+                                <label for="inpHoneyMoon">Balayı Çiftiyiz</label> 
+                            </div>
                         </div>
-                      </div>
-                      <div class="col-12 col-md">
-                        <div class="fake-placeholder">
-                          <input type="text" class="form-control" />
-                          <label>Uçuş Numarası Giriniz</label>
+                        <div class="col-auto">
+                            <h4 class="search__title--regular-small">Balayı çiftlerimize özel lorem ipsum dolor sit amet.</h4>
+                            <div class="fake-placeholder icon--pickadate">
+                                <input type="text" class="form-control disabled" disabled/>
+                                <label>Evlilik Tarihini Giriniz</label>
+                            </div>
                         </div>
-                      </div>
-                      <div class="col-12 col-md">
-                        <div class="fake-placeholder">
-                          <input type="text" class="form-control" />
-                          <label>Notunuz</label>
-                        </div>
-                      </div>
                     </div>
-                  </div>
-                  <div class="search-main-headings">
-                    <h4 class="search__title">
-                      DÖNÜŞ TRANSFERİ
-                    </h4>
-                  </div>
-                  <div class="search-boxes">
-                    <ul class="transfers-list">
-                      <li class="transfers-list-item">
-                        <div class="fake-checkbox">
-                          <input id="chkEko1" name="transfers" type="radio" />
-                          <label for="chkEko1">
-                            <img class="transfers-img" src="http://via.placeholder.com/152x92" />
-                            <span class="transfers-name">Ekonomik Transfer</span>
-                            <span class="transfers-cost">100 TL</span>
-                          </label>
+                    </div>
+                    <div class="search-main-headings">
+                        <h4 class="search__title text-uppercase">
+                            @T["reservationContactsandBillingInformation"]
+                        </h4>
+                    </div>
+                    <div class="search-boxes">
+                        <div class="row">
+                            <div class="col-12">
+                                <h4 class="search__title--regular">
+                                    @T["pleaseEnterTheInformationToBeContactedAboutTheBookings"]
+                                </h4>
+                            </div>
                         </div>
-                      </li>
-                      <li class="transfers-list-item">
-                        <div class="fake-checkbox">
-                          <input id="chkEko2" name="transfers" type="radio" />
-                          <label for="chkEko2">
-                            <img class="transfers-img" src="http://via.placeholder.com/152x92" />
-                            <span class="transfers-name">Ekonomik Transfer</span>
-                            <span class="transfers-cost">100 TL</span>
-                          </label>
+                        <div class="row">
+                        <div class="col-12 col-md-3 pr-md-0">
+                            <div class="fake-placeholder">
+                                <input type="text" id="name" asp-for="Billing.Name.FirstName" class="form-control">
+                                <label class="fake-placeholder__item">@T["name"] </label>
+                                <span asp-validation-for="Billing.Name.FirstName" class="required" data-valmsg-replace="false">@T["requiredText"]</span>
+                            </div>
                         </div>
-                      </li>
-                      <li class="transfers-list-item">
-                        <div class="fake-checkbox">
-                          <input id="chkEko3" name="transfers" type="radio" />
-                          <label for="chkEko3">
-                            <img class="transfers-img" src="http://via.placeholder.com/152x92" />
-                            <span class="transfers-name">Ekonomik Transfer</span>
-                            <span class="transfers-cost">100 TL</span>
-                          </label>
+                        <div class="col-12 col-md-3">
+                            <div class="fake-placeholder">
+                                <input type="text" id="surname" asp-for="Billing.Name.LastName" class="form-control">
+                                <label class="fake-placeholder__item">@T["surname"] </label>
+                                <span asp-validation-for="Billing.Name.LastName" class="required" data-valmsg-replace="false">@T["requiredText"]</span>
+                            </div>
                         </div>
-                      </li>
-                    </ul>
-                    <h5 class="search__title--regular">
-                      Lütfen uçuş bilgilerini giriniz.
-                    </h5>
+                        <div class="col-12 col-md-6 pl-md-0">
+                            <div class="fake-placeholder">
+                                <input type="email" asp-for="Billing.Contact.Email" class="form-control">
+                                <label class="fake-placeholder__item">@T["eMail"] </label>
+                                <span asp-validation-for="Billing.Contact.Email" class="required" data-valmsg-replace="false">@T["requiredText"]</span>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
-                      <div class="col-12 col-md">
-                        <div class="fake-placeholder">
-                          <input type="text" class="form-control" />
-                          <label>Uçuş Saati Giriniz</label>
+                        <div class="col-12 col-md-6">
+                            <div class="col-12 px-0" style="padding-top:0 !important">
+                                @if (Model.Billing.Contact.Country == "TR")
+                                {
+                                    <div class="fake-placeholder">
+                                        <input id="identifier" type="number" @*asp-for="Billing.IdentityNo"*@ class="form-control" @(lang == "tr" ? "data-maxlength='11'" : "")>
+                                        <label class="fake-placeholder__item">@T["identityNo"] </label>
+                                        <!-- <span asp-validation-for="Billing.IdentityNo" class="required" data-valmsg-replace="false">@T["requiredText"]</span> -->
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="fake-placeholder">
+                                        <input id="identifier" type="number" @*asp-for="Billing.Contact.PostalCode"*@ class="form-control">
+                                        <label class="fake-placeholder__item">@T["postalCode"] </label>
+                                        <!-- <span asp-validation-for="Billing.Contact.PostalCode" class="required" data-valmsg-replace="false">@T["requiredText"]</span> -->
+                                    </div>
+                                }
+                            </div>
                         </div>
-                      </div>
-                      <div class="col-12 col-md">
-                        <div class="fake-placeholder">
-                          <input type="text" class="form-control" />
-                          <label>Uçuş Numarası Giriniz</label>
+                        <div class="col-12 col-md-6 pl-md-0">
+                                <div class="input-group">
+                                    <div class="input-group-prepend col-4 px-0">
+                                        <select class="form-control"
+                                                asp-for="Billing.Contact.CountryCode"
+                                                asp-items="@(new SelectList(ViewBag.CountriesCodes, "PhoneCode", "PhoneCode"))"></select>
+                                    </div>
+                                    <input type="number" asp-for="Billing.Contact.Phone" class="form-control" data-minlength="10" data-maxlength="@(lang != "tr" ? "15" :"10")">
+                                    <span asp-validation-for="Billing.Contact.Phone" class="required" data-valmsg-replace="false">@T["requiredText"]</span>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <select class="form-control" placeholder="Mr. / Mrs." id="dlCountries"
+                                    asp-for="Billing.Contact.Country"
+                                    asp-items="@(new SelectList(ViewBag.Countries, "IsoCode", "Name"))"></select>
+                        </div> 
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="fake-placeholder">
+                                <textarea class="form-control" @*asp-for="Billing.Contact.Address"*@></textarea>
+                                <label class="fake-placeholder__item">@T["address"] </label>
+                                <!-- <span asp-validation-for="Billing.Contact.Address" class="required" data-valmsg-replace="false">@T["requiredText"]</span> -->
+                            </div>
                         </div>
-                      </div>
-                      <div class="col-12 col-md">
-                        <div class="fake-placeholder">
-                          <input type="text" class="form-control" />
-                          <label>Notunuz</label>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="unique-checkbox">
+                                <input asp-for="Billing.UseAlternateBilling" type="checkbox" id="inpBillingDetails">
+                                <label for="inpBillingDetails">
+                                    @T["myBillingDetailsAreNotTheAbove"]
+                                    
+                                </label>
+                                <span asp-validation-for="Billing.UseAlternateBilling" data-valmsg-replace="false">@T["requiredText"]</span>
+                            </div>
+                            
                         </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-12">
-                      <ul class="transfers__menu">
-                        <li class="transfers__menu-item">
-                          <a href="" class="transfers__menu-link">
+                        <div class="col-12 mt-md-4">
                             <div class="unique-checkbox">
-                              <input type="checkbox" id="chkBothChanges" />
-                              <label for="chkBothChanges">
-                                Transfer İstiyorum
-                              </label>
+                                <input type="checkbox" id="inpTerms" asp-for="AcceptTerms">
+                                <label id="inpTermsLabel" for="inpTerms">
+                                    @T["iHaveReadThePersonalDataProtectionAndPrivacyPolicy"]
+                                </label>
+                                 <span asp-validation-for="AcceptTerms" class="required" data-valmsg-replace="false">
+                                    @T["requiredText"]
+                                </span>
                             </div>
-                          </a>
-                        </li>
-                        <li class="transfers__menu-item">
-                          <a href="" class="transfers__menu-link">
-                            <div class="unique-checkbox">
-                              <input type="checkbox" id="chkTripTransfer" />
-                              <label for="chkTripTransfer">
-                                Gidiş - Dönüş
-                              </label>
+                        </div>
+                    </div>
+                    
+                    </div>
+                    <div class="search-boxes billing-details">
+                        <div class="row">
+                            <div class="col-12">
+                                <h4 class="search__title">
+                                    @T["billingInformation"]
+                                </h4>
                             </div>
-                          </a>
-                        </li>
-                        <li class="transfers__menu-item">
-                          <a href="" class="transfers__menu-link">
-                            <div class="unique-checkbox">
-                              <input type="checkbox" id="chkOnlyArrival" />
-                              <label for="chkOnlyArrival">
-                                Sadece Geliş
-                              </label>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-md-6 pr-md-0">
+                                <div class="fake-placeholder">
+                                    <input type="text" asp-for="Billing.CompanyName" class="form-control">
+                                    <label class="fake-placeholder__item">@T["companyName"] </label>
+                                    <span asp-validation-for="Billing.CompanyName" class="required" data-valmsg-replace="false">@T["requiredText"]</span>
+                                </div>
                             </div>
-                          </a>
-                        </li>
-                        <li class="transfers__menu-item">
-                          <a href="" class="transfers__menu-link">
-                            <div class="unique-checkbox">
-                              <input type="checkbox" id="chkOnlyDeparture" />
-                              <label for="chkOnlyDeparture">
-                                Sadece Gidiş
-                              </label>
+                            <div class="col-12 col-md-3 pr-md-0">
+                                <div class="fake-placeholder">
+                                    <input type="text" asp-for="Billing.TaxOffice" class="form-control">
+                                    <label class="fake-placeholder__item">@T["taxOffice"] </label>
+                                    <span asp-validation-for="Billing.TaxOffice" class="required" data-valmsg-replace="false">@T["requiredText"]</span>
+                                </div>
                             </div>
-                          </a>
-                        </li>
-                      </ul>
+                            <div class="col-12 col-md-3">
+                                <div class="fake-placeholder">
+                                    <input type="text" asp-for="Billing.TaxNumber" class="form-control">
+                                    <label class="fake-placeholder__item">@T["taxNumber"] </label>
+                                    <span asp-validation-for="Billing.TaxNumber" class="required" data-valmsg-replace="false">@T["requiredText"]</span>
+                                </div>
+                            </div>
+                            <div class="col-12 mt-md-5">
+                                <div class="fake-placeholder">
+                                    <textarea class="form-control" asp-for="Billing.Contact.CompanyAddress" rows="4"></textarea>
+                                    <label class="fake-placeholder__item">@T["address"] </label>
+                                    <span asp-validation-for="Billing.Contact.CompanyAddress" class="required" data-valmsg-replace="false">@T["requiredText"]</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-                  <div class="row" data-show="arrival">
-                    <div class="col-12">
-                      <h6 class="search__title">
-                        Geliş Transferi
-                      </h6>
-                    </div>
-                    <div class="col col-md-4 pr-md-0">
-                      <select class="form-control">
-                        <option selected="selected" value="10">Antalya Havalimanı - VIP Transfer 1-3 </option>
-                        <option value="11">Antalya Gazipaşa Havaalanı - VIP Transfer 1-3</option>
-                      </select>
-                    </div>
-                    <div class="col-12 col-md pr-md-0">
-                      <div class="fake-placeholder">
-                        <input class="form-control" />
-                        <label class="fake-placeholder__item">Misafir Sayısı</label>
-                      </div>
-                    </div>
-                    <div class="col-12 col-md pr-md-0">
-                      <div class="fake-placeholder">
-                        <input class="form-control" />
-                        <label class="fake-placeholder__item">Uçuş No</label>
-                      </div>
-                    </div>
-                    <div class="col-12 col-md pr-md-0">
-                      <div class="fake-placeholder">
-                        <input class="form-control" />
-                        <label type="time" class="fake-placeholder__item">Uçuş Saati</label>
-                      </div>
-                    </div>
-                    <div class="col-12 col-md-3">
-                      <div class="fake-placeholder">
-                        <input class="form-control" />
-                        <label type="time" class="fake-placeholder__item">Transfer Saati</label>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row" data-show="departure">
-                    <div class="col-12">
-                      <h6 class="search__title">
-                        Dönüş Transferi
-                      </h6>
-                    </div>
-                    <div class="col col-md-4 pr-md-0">
-                      <select class="form-control">
-                        <option selected="selected" value="10">Antalya Havalimanı - VIP Transfer 1-3 </option>
-                        <option value="11">Antalya Gazipaşa Havaalanı - VIP Transfer 1-3</option>
-                      </select>
-                    </div>
-                    <div class="col-12 col-md pr-md-0">
-                      <div class="fake-placeholder">
-                        <input class="form-control" />
-                        <label class="fake-placeholder__item">Misafir Sayısı</label>
-                      </div>
-                    </div>
-                    <div class="col-12 col-md pr-md-0">
-                      <div class="fake-placeholder">
-                        <input class="form-control" />
-                        <label class="fake-placeholder__item">Uçuş No</label>
-                      </div>
-                    </div>
-                    <div class="col-12 col-md pr-md-0">
-                      <div class="fake-placeholder">
-                        <input class="form-control" />
-                        <label type="time" class="fake-placeholder__item">Uçuş Saati</label>
-                      </div>
-                    </div>
-                    <div class="col-12 col-md-3">
-                      <div class="fake-placeholder">
-                        <input class="form-control" />
-                        <label type="time" class="fake-placeholder__item">Transfer Saati</label>
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </div>
               <div class="reservation-details">

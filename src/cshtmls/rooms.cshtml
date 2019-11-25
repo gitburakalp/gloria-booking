@@ -1,0 +1,146 @@
+@using System.Web
+@using Microsoft.AspNetCore.Html
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Infrastructure
+@model Klonbits.CMSBits.Presentation.Web.ViewModels.Book.RoomsListViewModel
+@inject IViewLocalizer T
+@{
+    ViewData["Step"] = "Rooms";
+    ViewData["Title"] = T["exploreRooms"];
+}
+
+@if (ViewBag.ShowResultPanel)
+{
+    <form id="bookForm" method="post" class="active" action="@Url.RouteUrl("public-booking", new {action = "Rooms"})">
+        <input id="selectedRoomId" name="id" type="hidden" />
+        <div class="rooms">
+            @foreach (var room in Model.Rooms)
+            {
+                <div class="rooms__item @(room.IsBooked ? "order-1" : "")">
+                    <div class="rooms__images">
+                        <div class="rooms-container">
+                            <div class="rooms-wrapper">
+                                @foreach (var roomImage in room.Gallery.Photos)
+                                {
+                                    <div class="rooms-slide">
+                                        <img src="@roomImage.Url">
+                                    </div>
+                                }
+                            </div>
+                            <div class="rooms-controller">
+                                <div class="prev">
+                                </div>
+                                <div class="next">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="rooms-details-section">
+                            <a class="rooms-details">
+                                <i class="information-circle">i</i>
+                                Detaylı Bilgi
+                            </a>
+                        </div>
+                    </div>
+                    <div class="rooms__info">
+                        <h1 class="rooms__info-title">
+                            @Html.Raw(HttpUtility.HtmlDecode(room.Title.ToLower()))
+                        </h1>
+                        <p class="rooms__info-description">
+                            @{
+                                var description = string.Empty;
+                                if (room.AvailableForMinStay)
+                                {
+                                    description = room.Description;
+                                }
+                                else
+                                {
+                                    var value = T["minimumStayRuleMessage"].Value;
+                                    description = value.Replace("{MinStay}", room.MinStay.ToString());
+                                }
+                            }
+                            <!-- @Html.Raw(HttpUtility.HtmlDecode(description)) -->
+                            Oda açıklaması TODO:!
+                        </p>
+                        <div class="row justify-content-between align-items-center">
+                            <div class="col-8">
+                                <p class="rooms__info-costs">
+                                    <a class="cost-info">
+                                        i
+                                    </a>
+                                    <span class="new">
+                                        <price price='@room.TotalPrice'></price>
+                                    </span>
+                                    <span class="old">
+                                        14.320 TL
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="col-auto pl-0">
+                                @if (room.AvailableForMinStay)
+                                {
+                                    @if (room.IsAvailable)
+                                    {
+                                        <a class="btn btn--select @(room.IsBooked ? "btn--black" : "")" data-book="book" data-id="@room.Id">
+                                            @(room.IsBooked ? T["selected"] : T["select"])
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        @T["notAvailableOnSelectedDates"]
+                                    }
+                                }
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-end">
+                            <div class="col-auto">
+                                @*<a class="btn btn--dark border-radius-5px btn--sm d-inline-block">@T["moreInfo"]</a>*@
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </form>
+}
+@section Scripts
+    {
+    <script>
+        $('[data-book="book"]').click(function () {
+            var id = $(this).data('id');
+            $('#selectedRoomId').val();
+            $('#selectedRoomId').val(id);
+            $('#bookForm').submit();
+        });
+
+        var slidersInit = () => {
+            var sliders = [];
+
+            var sliderElems = document.querySelectorAll(".rooms-container");
+
+            sliderElems.forEach(e => {
+                sliders.push(
+                    new Swiper(e, {
+                        slidesPerView: 1,
+                        spaceBetween: 14,
+                        containerModifierClass: "rooms-container--",
+                        wrapperClass: "rooms-wrapper",
+                        slideClass: "rooms-slide",
+                        slideActiveClass: "rooms-slide--active",
+                        slideNextClass: "rooms-slide--next",
+                        slidePrevClass: "rooms-slide--prev",
+                        navigation: {
+                            nextEl: e.querySelector(".next"),
+                            prevEl: e.querySelector(".prev")
+                        }
+                    })
+                );
+            });
+        };
+
+        window.onload = () => {
+            slidersInit();
+        };
+    </script>
+}
